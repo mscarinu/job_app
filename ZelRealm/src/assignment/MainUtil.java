@@ -12,7 +12,7 @@ public class MainUtil {
 		Scanner scan = new Scanner(System.in);
 
 		DBService dbService = new DBService();
-		//dbService.createDatabase("my_users");
+		dbService.createDatabase("my_users");
 
 		System.out.println("\nSystem will now create table " + '"' + " users"
 				+ '"');
@@ -26,7 +26,7 @@ public class MainUtil {
 					+ "CONSTRAINT pk_USERID PRIMARY KEY(user_id))";
 
 			System.out.println("Please wait while the system is loading");
-			//dbService.createTable("my_users", "users", createUserTable);
+			dbService.createTable("my_users", "users", createUserTable);
 
 		} else {
 			System.out.println("Invalid input! Program terminated");
@@ -39,7 +39,7 @@ public class MainUtil {
 		console = scan.next();
 		if (console.equals("y") || console.equals("Y")) {
 			System.out.println("Please wait while the system is loading");
-			//dbService.populateUsersDistinctPlayer("my_users");
+			dbService.populateUsersDistinctPlayer("my_users");
 		} else {
 			System.out.println("Invalid input! Program terminated");
 			System.exit(0);
@@ -51,7 +51,7 @@ public class MainUtil {
 		console = scan.next();
 		if (console.equals("y") || console.equals("Y")) {
 			System.out.println("Please wait while the system is loading");
-			//dbService.updateUsersPlayerName("my_users");
+			dbService.updateUsersPlayerName("my_users");
 		} else {
 			System.out.println("Invalid input! Program terminated");
 			System.exit(0);
@@ -63,7 +63,7 @@ public class MainUtil {
 		console = scan.next();
 		if (console.equals("y") || console.equals("Y")) {
 			System.out.println("Please wait while the system is loading");
-			//dbService.updateUsersSessionNumbers("my_users");
+			dbService.updateUsersSessionNumbers("my_users");
 		} else {
 			System.out.println("Invalid input! Program terminated");
 			System.exit(0);
@@ -79,8 +79,8 @@ public class MainUtil {
 					+ "amount DOUBLE, number_of_purchases INT, "
 					+ "FOREIGN KEY (user_id) REFERENCES users(user_id))";
 			System.out.println("Please wait while the system is loading");
-			//dbService
-			//		.createTable("my_users", "purchases", createTablePurchases);
+			dbService
+					.createTable("my_users", "purchases", createTablePurchases);
 		} else {
 			System.out.println("Invalid input! Program terminated");
 			System.exit(0);
@@ -92,7 +92,7 @@ public class MainUtil {
 		console = scan.next();
 		if (console.equals("y") || console.equals("Y")) {
 			System.out.println("Please wait while the system is loading");
-			//dbService.populateTablePurchases("my_users", "purchases");
+			dbService.populateTablePurchases("my_users", "purchases");
 		} else {
 			System.out.println("Invalid input! Program terminated");
 			System.exit(0);
@@ -105,7 +105,7 @@ public class MainUtil {
 		console = scan.next();
 		if (console.equals("y") || console.equals("Y")) {
 			System.out.println("Please wait while the system is loading");
-			//dbService.updateNumberOfPurchases("my_users", "purchases");
+			dbService.updateNumberOfPurchases("my_users", "purchases");
 		} else {
 			System.out.println("Invalid input! Program terminated");
 			System.exit(0);
@@ -117,7 +117,7 @@ public class MainUtil {
 		console = scan.next();
 		if (console.equals("y") || console.equals("Y")) {
 			System.out.println("Please wait while the system is loading");
-			//dbService.updateAmount("my_users", "purchases");
+			dbService.updateAmount("my_users", "purchases");
 		} else {
 			System.out.println("Invalid input! Program terminated");
 			System.exit(0);
@@ -142,7 +142,7 @@ public class MainUtil {
 		console = scan.next();
 		if (console.equals("y") || console.equals("Y")) {
 			System.out.println("Please wait while the system is loading");
-			//dbService.dropSchema("my_users");
+			dbService.dropSchema("my_users");
 		} else {
 			System.out.println("Invalid input! Program terminated");
 			System.exit(0);

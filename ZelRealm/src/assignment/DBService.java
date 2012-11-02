@@ -341,8 +341,4 @@ public class DBService {
 		}
 	}
 
-	public static void main(String[] args) {
-		DBService dbservice = new DBService();
-		dbservice.updateUsersSessionNumbers("my_users");
-	}
 }
