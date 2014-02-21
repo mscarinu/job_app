@@ -1,0 +1,978 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta charset="utf-8" />
+<title>Sogamo Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+
+<link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
+<link href="assets/plugins/jquery-slider/css/jquery.sidr.light.css" rel="stylesheet" type="text/css" media="screen"/>
+
+
+<!-- BEGIN PLUGIN CSS -->
+<link href="assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css"/>
+<link href="assets/plugins/data-tables/custom_table_jui.css" rel="stylesheet" type="text/css" media="screen"/>
+<link href="assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select2/select2.css" rel="stylesheet" type="text/css" media="screen"/>
+<!-- END PLUGIN CSS -->
+
+<!-- BEGIN CORE CSS FRAMEWORK -->
+<link href="assets/plugins/bootstrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/plugins/bootstrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="assets/plugins/sgm-multiple-select-master/multiple-select.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
+<!-- END CORE CSS FRAMEWORK -->
+
+<!-- BEGIN CSS TEMPLATE -->
+<link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/sgm-style.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+<link href="assets/plugins/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+
+<!-- END CSS TEMPLATE -->
+<style>
+  .formula_builder .division_divider {
+width: 100%;
+height: 2px;
+background-color: #dfe5ed;
+margin: 25px 0;
+}
+.formula_builder{
+    padding: 20px 40px;
+//background-color: #f3f5f9;
+//border: 1px solid #d1d3da;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+//border-radius: 3px;
+-webkit-box-shadow: 0 1px 1px rgba(100,100,100,0.1);
+-moz-box-shadow: 0 1px 1px rgba(100,100,100,0.1);
+box-shadow: 0 1px 1px rgba(100,100,100,0.1);
+-webkit-user-select: none;
+-moz-user-select: none;
+-o-user-select: none;
+user-select: none;
+text-align: center;
+}
+.formula_builder .division_divider .symbol {
+height: 16px;
+width: 32px;
+background: url(//cdn.mxpnl.com/cache/2604a4ff2eaa85568fd5d75a7bd63944/images/reports/formulas/division.png) no-repeat 50% #f3f5fa;
+margin: auto;
+position: relative;
+top: -7px;
+}
+.formula_builder .numerator, .formula_builder .denominator {
+height: 71px;
+display: inline-block;
+text-align: left;
+}
+.formula_builder .numerator>*, .formula_builder .denominator>* {
+display: inline-block;
+vertical-align: middle;
+//height: 71px;
+}
+.formula_entry {
+display: inline-block;
+vertical-align: middle;
+position: relative;
+min-width: 26px;
+height: 60px;
+margin: 5px 0;
+background-color: #f7f8f9;
+border: 2px solid #cad0d9;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+cursor: pointer;
+}
+.formula_entry .entry_name {
+line-height: 60px;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+font-family: proxima-nova,sans-serif;
+//font-weight: 600;
+color: #747d94;
+text-align: center;
+font-size: 18px;
+padding: 0 17px;
+}
+.formula_operator {
+display: inline-block;
+position: relative;
+//margin: 0 20px;
+vertical-align: middle;
+}
+.popover i {
+  font-size: 25px;
+}
+.bookmarks_add_widget .popover-title{
+  display: none;
+}
+
+.numerator .popover, .denominator .popover{
+background-color: #3d4e67;
+min-width: 280px;
+width: auto; 
+height: auto;
+//padding: 10px;
+max-width: none;
+
+
+}
+.op_choice, .op_separator, .toggle_paren{
+  color: #fff;
+  margin-right: 10px;
+}
+.popover.bottom .arrow:after {
+  border: #3d4e67;
+}
+.popover-content .add, .popover-content .subtract, .popover-content .multiply, .popover-content .toggle_paren  {
+  cursor: pointer;
+}
+  .sf_wrapper {
+    border-width: 0 1px;
+    //padding: 19px 24px;
+  }
+  .sf_wrapper .property_filter .typecast_dropdown, .sf_second_dimension .property_filter .typecast_dropdown, .sf_wrapper .property_filter .delete_button, .sf_second_dimension .property_filter .delete_button {
+    //float: right;
+  }
+
+  .rounded_dropdown, .filterable_dropdown, .rounded_checkbox_dropdown, .base_combobox, .icon_dropdown {
+    font-family: proxima-nova,sans-serif;
+    position: relative;
+    font-size: 11px;
+    color: #555;
+    display: inline-block;
+  }
+  .sf_wrapper .property_filter, .sf_second_dimension .property_filter {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 98%;
+  }
+  .sf_wrapper .rows {
+    padding-left: 97px;
+  }
+  .sf_wrapper .labels {
+    float: left;
+    position: relative;
+  }
+  .sf_wrapper .property_filter .rule, .sf_second_dimension .property_filter .rule {
+    display: inline-block;
+    vertical-align: bottom;
+  }
+ 
+  .sf_wrapper .labels .grey_vert {
+    top: 0;
+    left: 40px;
+    height: 100%;
+    display: none;
+  }
+  .sf_wrapper .grey_vert {
+    position: absolute;
+    width: 1px;
+    background: #bfcfda;
+  }
+  /*.sf_wrapper .labels .grey_horz {
+    position: absolute;
+    top: 0;
+    left: 40px;
+    width: 55px;
+    height: 16px;
+    border-left: 1px solid #fbfbfb;
+    border-bottom: 1px solid #bfcfda;
+    display: none;
+  }*/
+  .sf_wrapper .labels .seg_label {
+    display: block;
+    width: 80px;
+    padding: 7px 0;
+    background: #dfe2ec;
+    border: 1px solid #ccd1dd;
+    margin-bottom: 31px;
+    color: #747d94;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 1px rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .sf_wrapper .new_row {
+    background: url(//cdn.mxpnl.com/cache/2d196f6112ac9c8105520c8da1f018f8/images/reports/funnels3/new_row_spritesheet.png);
+    width: 30px;
+    height: 30px;
+    margin: 15px 0 0 26px;
+    cursor: pointer;
+    position: relative;
+    display: none;
+  }
+
+  .sf_wrapper .labels .bool_op {
+    margin-bottom: 41px;
+    position: relative;
+  }
+  .toggle {
+    display: inline-block;
+  }
+  #report_content .sf_wrapper .labels .bool_op .toggle_side.active:first-child {
+    border-right: 0;
+  }
+  .toggle_side {
+    min-width: 30px;
+    height: 16px;
+    background-color: #efefef;
+    color: #4f5660;
+    border-top: 1px solid #acacac;
+    border-bottom: 1px solid #acacac;
+    border-left: 1px solid #acacac;
+    display: inline-block;
+    padding: 7px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: proxima-nova,sans-serif;
+    background-color: #f6f6f5;
+    background-image: -moz-linear-gradient(top,#fdfdfd,#ebebe9);
+    background-image: -ms-linear-gradient(top,#fdfdfd,#ebebe9);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#fdfdfd),to(#ebebe9));
+    background-image: -webkit-linear-gradient(top,#fdfdfd,#ebebe9);
+    background-image: -o-linear-gradient(top,#fdfdfd 0,#ebebe9 0);
+    background-image: linear-gradient(top,#fdfdfd 0,#ebebe9 0);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fdfdfd',endColorstr='#ebebe9',GradientType=0);
+    -webkit-box-shadow: inset 0 0 0 1px #fff,0 1px 1px 0 #d7d7db;
+    -moz-box-shadow: inset 0 0 0 1px #fff,0 1px 1px 0 #d7d7db;
+    box-shadow: inset 0 0 0 1px #fff,0 1px 1px 0 #d7d7db;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+  }
+  .toggle_side:first-child {
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+  }
+  .sf_wrapper .labels .bool_op .toggle .toggle_side {
+    padding: 7px;
+  }
+  #report_content .sf_wrapper .labels .bool_op .toggle_side {
+    min-width: auto!important;
+    width: 25px;
+    font-size: 11px;
+    border: 1px solid #bdc7d2;
+    background-color: #f6f7f9;
+    background-image: -moz-linear-gradient(top,#f9fafb,#f2f3f6);
+    background-image: -ms-linear-gradient(top,#f9fafb,#f2f3f6);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#f9fafb),to(#f2f3f6));
+    background-image: -webkit-linear-gradient(top,#f9fafb,#f2f3f6);
+    background-image: -o-linear-gradient(top,#f9fafb 0,#f2f3f6 0);
+    background-image: linear-gradient(top,#f9fafb 0,#f2f3f6 0);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9fafb',endColorstr='#f2f3f6',GradientType=0);
+    -webkit-box-shadow: 0 1px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0 1px rgba(0,0,0,0.05);
+    box-shadow: 0 1px rgba(0,0,0,0.05);
+  }
+  #report_content .sf_wrapper .labels .bool_op .toggle_side.active {
+    background: #dee0e2;
+    -webkit-box-shadow: inset 0 1px 3px #cfd2db;
+    -moz-box-shadow: inset 0 1px 3px #cfd2db;
+    box-shadow: inset 0 1px 3px #cfd2db;
+  }
+  #report_content .sf_wrapper .labels .bool_op .toggle_side.active:first-child {
+    border-right: 0;
+  }
+  #report_content .toggle_side:last-child {
+    border-right: 1px solid #bbc4d0;
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+  }
+  .sf_wrapper .new_row .grey_vert {
+    left: 14px;
+    top: -15px;
+    height: 15px;
+  }
+  .subseg_label{
+    background: #dfe2ec;
+    width: 90px;
+    padding: 7px 0;
+    text-align: center;
+    display: block;
+    float: left;
+  }
+  .sf_second_dimension .subsegment_row {
+    padding-left: 97px;
+  }
+  #bookmark_name{
+    background-color: #34465f;
+    color: #F7EFEF;
+    border: 1px solid #2b3a51;
+    width: 250px;
+  }
+  #save_bookmark{
+    margin-left: 5px;
+  }
+  .bookmarks_add_widget .popover-content {
+    background: #263F57;
+    width: 330px;    
+  }
+
+.formula_entries .popover-content {
+  padding: 9px 35px 9px 14px;
+}
+
+ .formula_entries .popover.bottom .arrow {
+      left: 150px;
+  }
+
+.formula_entries .popover-title {
+  margin: 0;
+}
+
+  .bookmarks_add_widget .popover-title { 
+    display: none; 
+  }
+  .bookmarks_add_widget .popover {
+    position: absolute;
+    top: 38px;
+    display: block;
+    left: -305px !important;
+  }
+  .bookmarks_add_widget div.popover.fade.bottom.in{
+    position: absolute;
+    top: 38px;
+    display: block;
+    left: -315px !important;
+  }
+  .bookmarks_dropdown_widget .popover{
+    position: absolute;
+    top: 38px;
+    display: block;
+    left: -165px !important;
+  }
+  .bookmarks_add_widget div.popover.fade.bottom.in{
+    position: absolute;
+    top: 38px;
+    display: block;
+    left: -315px !important;
+  }
+  .bookmarks_add_widget .popover.bottom .arrow {
+      left: 335px;
+  }
+  .bookmarks_dropdown_widget .popover-content {
+    width: 330px;
+    padding: 0;
+  }
+  .bookmarks_dropdown_widget .popover.bottom .arrow {
+      left: 235px;
+  }
+  .bookmarks_dropdown_widget div.popover.fade.bottom.in{
+    position: absolute;
+    top: 38px;
+    display: block;
+    left: -160px !important;
+  }
+  #s_table_wrapper{
+    margin-bottom: 10px;
+  }
+  .sf_wrapper .labels .seg_label:last-child {
+    margin-bottom: 0;
+  }
+  table.dataTable thead th div.DataTables_sort_wrapper {
+    color: #838ca2;
+  }
+  table.dataTable thead th{
+    background: #edeff5;
+    border-right: 1px solid #ddd;
+  }
+
+  .bookmark_details{
+    border-bottom: 1px solid #D1D0D0;
+    padding: 10px;
+    color: #5e6482;
+  }
+  .bookmark_menu_item .remove-bookmark{
+    margin: 10px;
+    cursor: pointer;
+  }
+  .bookmark_menu_item .name{
+    font-weight: bold;
+  }
+  .new_row .fa-plus-circle {
+    font-size: 30px; color: #fff; margin: 15px 0 0 13px; cursor: pointer; position: relative;
+  }
+  .new_row .grey_vert {
+    left: 25px;
+top: -45px;
+height: 15px;
+color: white;
+position: relative;
+width: 1px;
+background: #bfcfda;
+  }
+  .rows .delete{
+    position: absolute;
+float: none;
+right: 20px;
+//top: 9px;
+
+//left: 380px;
+  }
+
+  .segfilter .property_filter, .segfilter .engage_property_filter {
+padding-bottom: 14px;
+}
+
+  .segfilter .property_filter:last-child, .segfilter .engage_property_filter:last-child {
+padding-bottom: 0;
+}
+
+#player_location_details, #player_account_details, #player_contact_details{
+    margin-bottom: 20px; 
+    padding-top: 10px; 
+    padding-bottom: 15px; 
+    border-bottom: 1px solid silver;
+    font-size: 10pt;
+  }
+  #player_profile_details{
+    padding-top: 10px;
+  }
+  .leftstyle, .rightstyle{
+    text-align: left;
+    padding-top: 7px;
+    padding-bottom: 7px;
+    font-size: 10pt;
+  }       
+  .leftstyle{
+    color: grey;
+    font-weight: bold; 
+    width: 37%;     
+  }  
+  .rightstyle{
+    padding-left: 5px;
+  }
+
+  .cbp_tmtimeline > li .cbp_tmtime {
+    width: 13%
+  }
+  .cbp_tmtimeline > li .cbp_tmtime {
+    font-size: 10px
+  }
+  .timeline_details {
+    background: #AA6B6B;
+    position: absolute;
+    left: 30%;
+    top: 30px;
+    border: 1px solid #aaa;
+    border-radius: 15px;
+    background-color: #fff;
+    padding: 10px;
+    width: 50%;
+    box-sizing: border-box;
+  }
+
+#timeline_table .tl_name{
+  font-weight: bold;  
+  width: 40%;
+}
+
+#timeline_table .tr_value{
+  width: 60%;
+}
+
+#timeline_table tr{
+  width: 60%;
+}
+#timeline_table td{
+  padding: 6px 0;
+  border-top: 1px solid #ccc;
+}
+#timeline_table {
+  margin-top: 20px; 
+}
+
+</style>
+</head>
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+<body class="sgm">
+<!-- BEGIN HEADER -->
+<div class="header navbar navbar-inverse "> 
+  <!-- BEGIN TOP NAVIGATION BAR -->
+  <div class="navbar-inner">
+  <div class="header-seperation"> 
+    <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">  
+      <li class="dropdown"> <a id="main-menu-toggle" href="#main-menu"  class="" > <div class="iconset top-menu-toggle-white"></div> </a> </li>     
+    </ul>
+      <!-- BEGIN LOGO --> 
+      <a href="index.html"><img src="images/sogamo_small_w.png" class="logo" alt=""  data-src="images/sogamo_small_w.png" data-src-retina="images/sogamo_small_w.png" width="106" height="21"/></a>
+
+      <!-- END LOGO --> 
+      <ul class="nav pull-right notifcation-center">  
+        <li class="dropdown" id="header_task_bar"> <a href="index.html" class="dropdown-toggle active" data-toggle=""> <div class="iconset top-home"></div> </a> </li>
+        
+    <li class="dropdown" id="portrait-chat-toggler" style="display:none"> <a href="#sidr" class="chat-menu-toggle"> <div class="iconset top-chat-white "></div> </a> </li>        
+      </ul>
+      </div>
+      <!-- END RESPONSIVE MENU TOGGLER --> 
+      <div class="header-quick-nav" > 
+      <!-- BEGIN TOP NAVIGATION MENU -->
+    <div class="pull-left"> 
+        <ul class="nav quick-section">
+          <li class="quicklinks"> <a href="#" class="" id="layout-condensed-toggle" >
+            <div class="iconset top-menu-toggle-dark"></div>
+            </a> </li>
+        </ul>
+        <ul class="nav quick-section">
+          <li class="quicklinks"> <a href="javascript:window.reload();" class="" >
+            <div class="iconset top-reload"></div>
+            </a> </li>
+      </ul>
+    </div>
+   <!-- END TOP NAVIGATION MENU -->
+   <!-- BEGIN CHAT TOGGLER -->
+   <div class="pull-right">
+     <ul class="nav quick-section ">
+      <li class="quicklinks"> 
+        <a data-toggle="dropdown" class="dropdown-toggle  pull-right " href="#" id="user-options">            
+          <div class="iconset top-settings-dark "></div>  
+        </a>
+        <ul class="dropdown-menu  pull-right" role="menu" aria-labelledby="user-options">
+          <li><a href="user-profile.html"> My Apps </a></li>
+          <li class="divider"></li> 
+          <li><a href="user-profile.html"> Settings </a></li>
+          <li class="divider"></li>                
+          <li><a href="login.html"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
+        </ul>
+      </li> 
+      
+    </ul>
+      </div>
+     <!-- END CHAT TOGGLER -->
+      </div> 
+      <!-- END TOP NAVIGATION MENU --> 
+   
+  </div>
+  <!-- END TOP NAVIGATION BAR --> 
+</div>
+<!-- END HEADER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container row-fluid">
+  <!-- BEGIN SIDEBAR -->
+  <div class="page-sidebar" id="main-menu"> 
+  <!-- BEGIN MINI-PROFILE -->
+   <div class="user-info-wrapper">  
+  <div class="profile-wrapper">
+    <img src="assets/img/profiles/avatar.png"  alt="" data-src="assets/img/profiles/avatar.png" data-src-retina="assets/img/profiles/avatar.png" width="69" height="69" />
+  </div>
+    <div class="user-info">
+      <div class="greeting">Welcome</div>
+      <div class="username">Mark</div>
+    </div>
+   </div>
+  <!-- END MINI-PROFILE -->
+   
+  <!-- BEGIN SIDEBAR MENU -->  
+  <p class="menu-title">BROWSE <span class="pull-right"><a href="javascript:;"><i class="fa fa-refresh"></i></a></span></p>
+  <ul>
+        <li><a href="#"><i class="icon-custom-home"></i><span class=
+        "title">Dashboard</span><span class="selected"></span><span class="arrow open"></span></a>
+            <ul class="sub-menu">
+                <li>
+                  <a href="javascript:;"><span class="title">User Activity</span> <span class="arrow "></span></a>
+                  <ul class="sub-menu">
+                     <li > <a href="activeusers.html"> Active Users </a> </li>
+                     <li > <a href="javascript:;"> Session </a> </li>
+                     <li > <a href="javascript:;"> Retention </a> </li>
+                     <li > <a href="acquisition.html"> User Acquisition </a> </li>
+                     <li > <a href="javascript:;"> Install </a> </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#"><span class="title">Real Monetization</span> <span class="arrow "></span></a>
+                  <ul class="sub-menu">
+                     <li > <a href="javascript:;"> Revenue </a> </li>
+                     <li > <a href="payingusers.html"> Paying Users </a> </li>
+                     <li > <a href="javascript:;"> Purchase </a> </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#"><span class="title">Application Activity</span> <span class="arrow "></span></a>
+                  <ul class="sub-menu">
+                     <li > <a href="javascript:;"> Virtual Commerce </a> </li>
+                     <li > <a href="topsellingitems.html"> Top Selling Items </a> </li>
+                     <li > <a href="javascript:;"> Purchase </a> </li>
+                     <li > <a href="javascript:;"> Round </a> </li>
+                     <li > <a href="level.html"> Level </a> </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#"><span class="title">User Action</span> <span class="arrow "></span></a>
+                  <ul class="sub-menu">
+                     <li > <a href="actionmonitoring.html"> Action Monitoring </a> </li>
+                     <li > <a href="javascript:;"> Funnels </a> </li>
+                  </ul>
+                </li>
+                <li><a href="#">Users</a></li>
+                <li><a href="#">Virality</a></li>
+            </ul>
+        </li>
+        <li class="open"><a href="#"><i class="fa fa-envelope"></i><span class=
+        "title">Messaging</span><span class="arrow"></span></a>
+            <ul class="sub-menu" style="overflow: hidden; display: block;">
+                <li class="active sgm"><a href="messaging.html">Manage Messages</a></li>
+
+                <li><a href="#">Messaging Performance</a></li>
+
+                <li><a href="#">URL Tracking</a></li>
+
+                <li><a href="#">Template</a></li>
+            </ul>
+        </li>
+        <li class=""><a href="segmentation.html"><i class="fa fa-dot-circle-o"></i><span class=
+        "title">Segmentation</span></a></li>
+    <li class=""><a href="formulas.html"><i class="fa fa-building-o"></i><span class=
+        "title">Formulas</span></a></li>
+        <li class=""><a href="#"><i class="fa fa-group"></i><span class=
+        "title">Cohort Analysis</span></a></li>
+        <li class=""><a href="#"><i class="icon-custom-chart"></i><span class=
+        "title">Customized Charts</span></a></li>
+        <li class=""><a href="#"><i class="fa fa-bullhorn"></i><span class=
+        "title">Suggestions</span><span class="arrow"></span></a>
+            <ul class="sub-menu">
+                <li><a href="#">Manage Suggestions</a></li>
+                <li><a href="#">Suggestion Response</a></li>
+            </ul>
+        </li>
+        <li class=""><a href="#"><i class="icon-custom-chart"></i><span class=
+        "title">My Apps</span></a></li>
+    </ul>
+  
+    <a href="#" class="scrollup">Scroll</a>
+    <div class="clearfix"></div>
+      <!-- END SIDEBAR MENU --> 
+    </div>
+     <div class="footer-widget"> 
+        <div class="pull-right"><a href="lockscreen.html"><i class="fa fa-power-off"></i></a></div>
+    </div>
+    <!-- END SIDEBAR --> 
+        <!-- BEGIN PAGE CONTAINER-->
+
+    <div class="page-content"> 
+      <div class="clearfix"></div>
+      
+      <div class="content">  
+        <div class="page-title">  <!--<h3>Content Here</h3> --></div>    
+
+        <div class="row">
+          <div class="col-md-12">
+
+            <div class="grid simple">
+              <div class="grid-title no-border">
+                <div class="col-md-12">
+
+                  <form  style="display: inline-block">
+                    <div style="display: inline-block;margin: 6px 10px;">USER SEARCH</div>
+                    <input type="text" name="userid" value="" style="margin: 0 5px;">
+                    <i class="fa fa-search" style="margin: 0 5px;"></i>
+                    <span style="margin: 0 5px; font-weight: bold;">x</span>
+                  </form>
+                </div>
+              </div>
+              <div class="grid-body">
+                <div class="row">
+                  <div class="col-md-6">
+                  <div id="players_sidebar">
+                  <p style="font-size: 14px; margin-bottom:0; font-weight: bold;">ACCOUNT</p>
+                  <div id="player_account_details">
+                  <table width="100%">
+                  <tr><td class="leftstyle playerImgValue"></td><td style="font-size: 11pt; vertical-align: middle; padding-left: 5px;" class="playerName"></td></tr>
+                  <tr><td class="leftstyle">FB USER ID</td><td class="rightstyle playerIdValue"></td></tr>
+                  <tr><td class="leftstyle">SIGNED UP</td><td class="rightstyle playerSignup"></td></tr>
+                  </table>
+                  </div>
+                  <p id="plocation" style="font-size: 14px; margin-bottom:0; padding-bottom: 10px; font-weight: bold;">LOCATION</p>
+                  <div id="map_canvas" style="width: 100%;"></div>
+                  <div id="player_location_details">                       
+                  <span style="font-weight: bold; font-size: 13pt;" class="typ-icon-clock"></span><span id="localtime"></span>
+                  </div>
+                  <p style="font-size: 14px; margin-bottom:0; font-weight: bold;">CONTACT</p>
+                  <div id="player_contact_details">
+                  <table width="100%">
+                  <tr><td class="leftstyle">EMAIL</td><td class="rightstyle playerEmailValue"></td></tr>
+                  </table>
+                  </div>
+                  <p style="font-size: 14px; margin-bottom:0; font-weight: bold;">PROFILES</p>
+                  <div id="player_profile_details">
+                  <table width="100%">
+                  <tr><td class="leftstyle">FACEBOOK</td><td class="rightstyle playerFBName"><img src="@routes.Assets.at("images/fb-small-icon.png")"></img>&nbsp;&nbsp;</td></tr>
+                  </table>
+                  </div>
+                  </div>
+
+                  <br /><br />
+                  <div style="border: 1px solid #4AA1E5;"></div>
+                  <br /><br />
+                    <!--BEGIN ACTIVITY LIST -->
+                    <div class="row-fluid">
+                      <div class="span12">
+                        <div class="grid simple ">
+                          <div class="grid-title">
+                            <h4>ACTIVITY</h4>
+                          </div>
+                          <div class="grid-body " id="table_session_container">
+                            <table id="table_session"></table>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                    <!--END MESSAGE LIST -->
+
+                    <!--BEGIN USER MESSAGE LIST -->
+                    <div class="row-fluid">
+                      <div class="span12">
+                      <div class="grid simple">
+                        <div class="grid-title">
+                          <h4>MESSAGES</h4>
+                        </div>
+                        <div class="grid-body" id="table_message_container">
+                          <table id="table_message"></table>
+                        </div>
+                      </div>
+                      </div>
+                    </div>
+                    <!--END MESSAGE LIST -->
+                  </div>
+                  <div class="col-md-6">
+
+                    <div>
+                      <div class="col-md-10 col-vlg-7" style="width: 100%">
+                        <ul class="cbp_tmtimeline">
+                        <li>
+                          <time class="cbp_tmtime" datetime="2013-04-10 18:30">
+                          <span class="date">20 minutes</span>
+                          <span>BETWEEN SESSIONS</span>
+                          </time>
+                          <div class="cbp_tmicon primary animated bounceIn"> <i class="fa fa-comments"></i> </div>
+                          <div>
+                          <br /><br /><br /><br /><br /><br />   
+                          <div class="clearfix"></div> 
+                          </div>
+                        </li>
+                        <li>
+                          <time class="cbp_tmtime" datetime="2013-04-10 18:30">
+                          <span class="date">0.126 sec</span>
+                          <span>SESSION LENGTH</span>
+                          <span class="date">02/21/2014</span>
+                          </time>
+                          <div class="cbp_tmicon success animated bounceIn"> <i class="fa fa-map-marker"></i> </div>
+                          <div>
+                          <br /><br /><br /><br /><br /><br />   
+                          <div class="clearfix"></div>
+                          </div>
+                        </li>
+                        <li>
+                          <time class="cbp_tmtime" datetime="2013-04-10 18:30">
+                          <span class="date">49 sec</span>
+                          <span>BETWEEN SESSIONS</span>
+                          </time>
+                          <div class="cbp_tmicon info animated bounceIn"> <i class="fa fa-quote-left"></i> </div>
+                          <div>
+                          <br /><br /><br /><br /><br /><br />   
+                          <div class="clearfix"></div>   
+                          </div>
+                        </li>
+                        <li>
+                          <time class="cbp_tmtime" datetime="2013-04-10 18:30">
+                          <span class="date">2.152 sec</span>
+                          <span>SESSION LENGTH</span>
+                          </time>
+                          <div class="cbp_tmicon animated bounceIn">
+                          <div class="user-profile"> <img src="assets/img/profiles/avatar.png" data-src="assets/img/profiles/avatar.png" data-src-retina="assets/img/profiles/avatar.png" width="35" height="35" alt=""> </div>
+                          </div>
+                          <div>     
+                          <br /><br /><br /><br /><br /><br />   
+                          <div class="clearfix"></div>   
+                          </div>
+                        </li>
+                        </ul>
+                      </div>
+                    </div>
+                    <div class="timeline_details">
+                      <div style="font-weight: bold">EVENT DETAILS</div>
+                      <div>
+                        <table id="timeline_table">
+                          <tr><td class="tl_name">Device ID</td><td class="tl_value">806d4a0e3bfe3389</td></tr>
+                          <tr><td class="tl_name">User ID</td><td class="tl_value">806d4a0e3bfe3389</td></tr>
+                          <tr><td class="tl_name">Event ID</td><td class="tl_value">3104</td></tr>
+                          <tr><td class="tl_name">Session ID</td><td class="tl_value">1392967821962</td></tr>
+                          <tr><td class="tl_name">Version</td><td class="tl_value">3.4.6</td></tr>
+                          <tr><td class="tl_name">Platform</td><td class="tl_value">android 2.3.6</td></tr>
+                          <tr><td class="tl_name">Device</td><td class="tl_value">samsung samsung SGH-T769</td></tr>
+                          <tr><td class="tl_name">Carrier</td><td class="tl_value">T-Mobile</td></tr>
+                          <tr><td class="tl_name">Country</td><td class="tl_value">United States</td></tr>
+                          <tr><td class="tl_name">Language</td><td class="tl_value">English</td></tr>
+                        </table>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div> 
+   
+    </div>
+  </div>
+<!-- END CONTAINER --> 
+
+<!-- END CONTAINER -->
+
+<!-- BEGIN CORE JS FRAMEWORK--> 
+<script src="assets/plugins/jquery-1.8.3.min.js" type="text/javascript"></script> 
+<script src="assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script> 
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script> 
+<script src="assets/plugins/breakpoints.js" type="text/javascript"></script> 
+<script src="assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script> 
+<script src="assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script> 
+<script src="assets/plugins/data-tables/jquery.dataTables.js" type="text/javascript"></script> 
+<script src="assets/plugins/sgm-multiple-select-master/jquery.multiple.select.js" type="text/javascript"></script> 
+<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
+<!-- END CORE JS FRAMEWORK --> 
+
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="assets/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js" type="text/javascript"></script>
+<script src="assets/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script>
+<script src="assets/plugins/hc/highcharts.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+
+<!-- BEGIN PAGE LEVEL JS -->  
+<script src="assets/plugins/jquery-slider/jquery.sidr.min.js" type="text/javascript"></script>  
+<script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script> 
+<script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>  
+<script src="assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select2/select2.min.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->   
+
+<!-- BEGIN CORE TEMPLATE JS --> 
+<script src="assets/js/core.js" type="text/javascript"></script>
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+<script src="assets/js/demo.js" type="text/javascript"></script> 
+
+<!-- END CORE TEMPLATE JS --> 
+
+
+<script type="text/javascript">   
+  var geocoder, map, imgurl, e, gameids="";           
+  $("document").ready(function(){
+       showPlayerProfile('1403503','','Deanna Ho','','NETHERLANDS');
+  });
+
+ function initialize(){geocoder=new google.maps.Geocoder;var t={zoom:3,mapTypeControl:false,zoomControl:false,streetViewControl:false,mapTypeId:google.maps.MapTypeId.ROADMAP};map=new google.maps.Map(document.getElementById("map_canvas"),t);geocoder.geocode({address:e},function(e,t){if(t==google.maps.GeocoderStatus.OK){map.setCenter(e[0].geometry.location);var n=new google.maps.Marker({map:map,position:e[0].geometry.location})}else{console.log("Geocode was not successful for the following reason: "+t)}})}
+   
+  function showPlayerProfile(fbId, email, name, city, country){
+    $("#playerprofile").show();
+    $("#filteredPlayers").hide();
+
+    $('.playerImgValue').html('<img width="80px" height="80px" src="http://graph.facebook.com/'+fbId+'/picture?return_ssl_resources=1&amp;width=100&amp;height=100">');
+    $('.playerIdValue').html(fbId);
+    $('.playerEmailValue').html(email);
+    $(".playerName").html(name);
+    $.ajax({
+      url: "http://graph.facebook.com/"+fbId,
+      dataType: "json",
+      success: function(resp){
+        $(".playerFBName").html("<a style='color: black; vertical-align: top; text-decoration: underline' target='_blank' href='http://www.facebook.com/profile.php?id="+fbId+"'>"+resp.username+"</a>");
+      }
+    });
+
+    if(city != null || country != "undefined") { 
+      $("#player_location_details").prepend('<span id="locationupdate"><span style="font-weight: bold; font-size: 12pt;" class="iconic-icon-map-pin-fill"></span><span id="player_location">'+ city + country+'</span></span>');                   
+      $("#map_canvas").css("height","180px");
+      $("#plocation").show(); 
+      e = city+country;//codeAddress(city+resp.countryCode); 
+      google.load("maps", "3",  {callback: initialize, other_params:"sensor=false"});               
+    }   
+
+    var _sessionData=[], _msgData=[];
+    //var sessionResp = jQuery.parseJSON(decodeURIComponent('[{"date":"1 Jan","numberSession":"1"},{"date":"26 Dec","numberSession":"2"},{"date":"21 Dec","numberSession":"1"},{"date":"16 Dec","numberSession":"3"},{"date":"13 Dec","numberSession":"1"},{"date":"10 //Dec","numberSession":"2"},{"date":"9 Dec","numberSession":"2"},{"date":"8 Dec","numberSession":"3"},{"date":"7 Dec","numberSession":"2"},{"date":"6 Dec","numberSession":"1"}]'));
+
+    var sessionResp = jQuery.parseJSON(decodeURIComponent('[{"date":"1 Jan","numberSession":"1"},{"date":"26 Dec","numberSession":"2"}]'));
+
+    //var msgResp = jQuery.parseJSON(decodeURIComponent('[{"date":"1 Jan","numberMesg":"1"},{"date":"20 Dec","numberMesg":"1"},{"date":"16 Dec","numberMesg":"1"},{"date":"13 Dec","numberMesg":"2"},{"date":"12 Dec","numberMesg":"1"},{"date":"10 //Dec","numberMesg":"1"},{"date":"9 Dec","numberMesg":"1"},{"date":"8 Dec","numberMesg":"2"},{"date":"7 Dec","numberMesg":"1"},{"date":"6 Dec","numberMesg":"2"}]'));
+
+    var msgResp = jQuery.parseJSON(decodeURIComponent('[{"date":"1 Jan","numberMesg":"1"},{"date":"20 Dec","numberMesg":"1"},{"date":"16 Dec","numberMesg":"1"}]'));
+
+    for (var i=0; i<sessionResp.length; i++) {
+      _sessionData.push([sessionResp[i].date, sessionResp[i].numberSession]);
+    }
+
+    for (var j=0; j<msgResp.length; j++) {
+       _msgData.push([msgResp[j].date, msgResp[j].numberMesg]);
+    }
+
+    $("#table_message_container").empty();
+    $("#table_message_container").html('<table id="table_message"></table>');
+    $("#table_session_container").empty();
+    $("#table_session_container").html('<table id="table_session"></table>');
+
+    $("#table_session").dataTable({
+      bJQueryUI: !0,
+      bFilter: 0,
+      sPaginationType: "full_numbers",
+      aaData: _sessionData,
+      iDisplayLength: 10,
+      aoColumns: [
+        {sTitle: 'DATE', bSortable: !1}, 
+        {sTitle: 'NUMBER OF SESSIONS', bSortable: !1},           
+      ],
+      oLanguage: {
+        sLengthMenu: 'Display <select id="jqtable_length"><option value="10">10</option><option value="25">25</option><option value="50">50</option></select> records'
+      },
+      bSort: 0,
+      bLengthChange: !0
+    });
+
+    $("#table_message").dataTable({
+      bJQueryUI: !0,
+      bFilter: 0,
+      sPaginationType: "full_numbers",
+      aaData: _msgData,
+      iDisplayLength: 10,
+      aoColumns: [
+        {sTitle: 'DATE', bSortable: !1}, 
+        {sTitle: 'NUMBER OF MESSAGES', bSortable: !1}, 
+       
+      ],
+      oLanguage: {
+        sLengthMenu: 'Display <select id="jqtable_length"><option value="10">10</option><option value="25">25</option><option value="50">50</option></select> records'
+      },
+      bSort: 0,
+      bLengthChange: !0
+    });
+  }
+  
+</script>
+
+
+
+
+</body>
+</html>
