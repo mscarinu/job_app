@@ -1,0 +1,1431 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html;charset=UTF-8" />
+<meta charset="utf-8" />
+<title>Sogamo Dashboard</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+<meta content="" name="description" />
+<meta content="" name="author" />
+
+<link href="assets/plugins/pace/pace-theme-flash.css" rel="stylesheet" type="text/css" media="screen"/>
+<link href="assets/plugins/jquery-slider/css/jquery.sidr.light.css" rel="stylesheet" type="text/css" media="screen"/>
+
+
+<!-- BEGIN PLUGIN CSS -->
+<link href="assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.css" rel="stylesheet" type="text/css"/>
+<link href="assets/plugins/data-tables/custom_table_jui.css" rel="stylesheet" type="text/css" media="screen"/>
+<link href="assets/plugins/bootstrap-datepicker/css/datepicker.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/fancybox/source/jquery.fancybox.css" rel="stylesheet" type="text/css" />
+<link href="assets/plugins/bootstrap-select2/select2.css" rel="stylesheet" type="text/css" media="screen"/>
+<!-- END PLUGIN CSS -->
+
+<!-- BEGIN CORE CSS FRAMEWORK -->
+<link href="assets/plugins/bootstrapv3/css/bootstrap.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/plugins/bootstrapv3/css/bootstrap-theme.min.css" rel="stylesheet" type="text/css"/>
+<link href="assets/plugins/font-awesome/css/font-awesome.css" rel="stylesheet" type="text/css"/>
+<link href="assets/plugins/sgm-multiple-select-master/multiple-select.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/animate.min.css" rel="stylesheet" type="text/css"/>
+<!-- END CORE CSS FRAMEWORK -->
+
+<!-- BEGIN CSS TEMPLATE -->
+<link href="assets/css/style.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/sgm-style.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/responsive.css" rel="stylesheet" type="text/css"/>
+<link href="assets/css/custom-icon-set.css" rel="stylesheet" type="text/css"/>
+
+<!-- END CSS TEMPLATE -->
+<style>
+  .formula_builder .division_divider {
+width: 100%;
+height: 2px;
+background-color: #dfe5ed;
+margin: 25px 0;
+}
+.formula_builder{
+    padding: 20px 40px;
+//background-color: #f3f5f9;
+//border: 1px solid #d1d3da;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+//border-radius: 3px;
+-webkit-box-shadow: 0 1px 1px rgba(100,100,100,0.1);
+-moz-box-shadow: 0 1px 1px rgba(100,100,100,0.1);
+box-shadow: 0 1px 1px rgba(100,100,100,0.1);
+-webkit-user-select: none;
+-moz-user-select: none;
+-o-user-select: none;
+user-select: none;
+text-align: center;
+}
+.formula_builder .division_divider .symbol {
+height: 16px;
+width: 32px;
+background: url(//cdn.mxpnl.com/cache/2604a4ff2eaa85568fd5d75a7bd63944/images/reports/formulas/division.png) no-repeat 50% #f3f5fa;
+margin: auto;
+position: relative;
+top: -7px;
+}
+.formula_builder .numerator, .formula_builder .denominator {
+height: 71px;
+display: inline-block;
+text-align: left;
+}
+.formula_builder .numerator>*, .formula_builder .denominator>* {
+display: inline-block;
+vertical-align: middle;
+//height: 71px;
+}
+.formula_entry {
+display: inline-block;
+vertical-align: middle;
+position: relative;
+min-width: 26px;
+height: 60px;
+margin: 5px 0;
+background-color: #f7f8f9;
+border: 2px solid #cad0d9;
+-webkit-border-radius: 3px;
+-moz-border-radius: 3px;
+border-radius: 3px;
+cursor: pointer;
+}
+.formula_entry .entry_name {
+line-height: 60px;
+-webkit-box-sizing: border-box;
+-moz-box-sizing: border-box;
+box-sizing: border-box;
+font-family: proxima-nova,sans-serif;
+//font-weight: 600;
+color: #747d94;
+text-align: center;
+font-size: 18px;
+padding: 0 17px;
+}
+.formula_operator {
+display: inline-block;
+position: relative;
+//margin: 0 20px;
+vertical-align: middle;
+}
+.popover i {
+  font-size: 25px;
+}
+.bookmarks_add_widget .popover-title{
+  display: none;
+}
+
+.numerator .popover, .denominator .popover{
+background-color: #3d4e67;
+min-width: 280px;
+width: auto; 
+height: auto;
+//padding: 10px;
+max-width: none;
+
+
+}
+.op_choice, .op_separator, .toggle_paren{
+  color: #fff;
+  margin-right: 10px;
+}
+.popover.bottom .arrow:after {
+  border: #3d4e67;
+}
+.popover-content .add, .popover-content .subtract, .popover-content .multiply, .popover-content .toggle_paren  {
+  cursor: pointer;
+}
+  .sf_wrapper {
+    border-width: 0 1px;
+    //padding: 19px 24px;
+  }
+  .sf_wrapper .property_filter .typecast_dropdown, .sf_second_dimension .property_filter .typecast_dropdown, .sf_wrapper .property_filter .delete_button, .sf_second_dimension .property_filter .delete_button {
+    //float: right;
+  }
+
+  .rounded_dropdown, .filterable_dropdown, .rounded_checkbox_dropdown, .base_combobox, .icon_dropdown {
+    font-family: proxima-nova,sans-serif;
+    position: relative;
+    font-size: 11px;
+    color: #555;
+    display: inline-block;
+  }
+  .sf_wrapper .property_filter, .sf_second_dimension .property_filter {
+    display: inline-block;
+    vertical-align: bottom;
+    width: 98%;
+  }
+  .sf_wrapper .rows {
+    padding-left: 97px;
+  }
+  .sf_wrapper .labels {
+    float: left;
+    position: relative;
+  }
+  .sf_wrapper .property_filter .rule, .sf_second_dimension .property_filter .rule {
+    display: inline-block;
+    vertical-align: bottom;
+  }
+ 
+  .sf_wrapper .labels .grey_vert {
+    top: 0;
+    left: 40px;
+    height: 100%;
+    display: none;
+  }
+  .sf_wrapper .grey_vert {
+    position: absolute;
+    width: 1px;
+    background: #bfcfda;
+  }
+  /*.sf_wrapper .labels .grey_horz {
+    position: absolute;
+    top: 0;
+    left: 40px;
+    width: 55px;
+    height: 16px;
+    border-left: 1px solid #fbfbfb;
+    border-bottom: 1px solid #bfcfda;
+    display: none;
+  }*/
+  .sf_wrapper .labels .seg_label {
+    display: block;
+    width: 80px;
+    padding: 7px 0;
+    background: #dfe2ec;
+    border: 1px solid #ccd1dd;
+    margin-bottom: 31px;
+    color: #747d94;
+    font-weight: bold;
+    text-align: center;
+    text-shadow: 0 1px rgba(255,255,255,0.5);
+    text-transform: uppercase;
+    -webkit-border-radius: 2px;
+    -moz-border-radius: 2px;
+    border-radius: 2px;
+    position: relative;
+  }
+
+  .sf_wrapper .new_row {
+    background: url(//cdn.mxpnl.com/cache/2d196f6112ac9c8105520c8da1f018f8/images/reports/funnels3/new_row_spritesheet.png);
+    width: 30px;
+    height: 30px;
+    margin: 15px 0 0 26px;
+    cursor: pointer;
+    position: relative;
+    display: none;
+  }
+
+  .sf_wrapper .labels .bool_op {
+    margin-bottom: 41px;
+    position: relative;
+  }
+  .toggle {
+    display: inline-block;
+  }
+  #report_content .sf_wrapper .labels .bool_op .toggle_side.active:first-child {
+    border-right: 0;
+  }
+  .toggle_side {
+    min-width: 30px;
+    height: 16px;
+    background-color: #efefef;
+    color: #4f5660;
+    border-top: 1px solid #acacac;
+    border-bottom: 1px solid #acacac;
+    border-left: 1px solid #acacac;
+    display: inline-block;
+    padding: 7px;
+    text-align: center;
+    cursor: pointer;
+    font-size: 13px;
+    font-weight: bold;
+    font-family: proxima-nova,sans-serif;
+    background-color: #f6f6f5;
+    background-image: -moz-linear-gradient(top,#fdfdfd,#ebebe9);
+    background-image: -ms-linear-gradient(top,#fdfdfd,#ebebe9);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#fdfdfd),to(#ebebe9));
+    background-image: -webkit-linear-gradient(top,#fdfdfd,#ebebe9);
+    background-image: -o-linear-gradient(top,#fdfdfd 0,#ebebe9 0);
+    background-image: linear-gradient(top,#fdfdfd 0,#ebebe9 0);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fdfdfd',endColorstr='#ebebe9',GradientType=0);
+    -webkit-box-shadow: inset 0 0 0 1px #fff,0 1px 1px 0 #d7d7db;
+    -moz-box-shadow: inset 0 0 0 1px #fff,0 1px 1px 0 #d7d7db;
+    box-shadow: inset 0 0 0 1px #fff,0 1px 1px 0 #d7d7db;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -o-user-select: none;
+    user-select: none;
+  }
+  .toggle_side:first-child {
+    -webkit-border-radius: 3px 0 0 3px;
+    -moz-border-radius: 3px 0 0 3px;
+    border-radius: 3px 0 0 3px;
+  }
+  .sf_wrapper .labels .bool_op .toggle .toggle_side {
+    padding: 7px;
+  }
+  #report_content .sf_wrapper .labels .bool_op .toggle_side {
+    min-width: auto!important;
+    width: 25px;
+    font-size: 11px;
+    border: 1px solid #bdc7d2;
+    background-color: #f6f7f9;
+    background-image: -moz-linear-gradient(top,#f9fafb,#f2f3f6);
+    background-image: -ms-linear-gradient(top,#f9fafb,#f2f3f6);
+    background-image: -webkit-gradient(linear,0 0,0 100%,from(#f9fafb),to(#f2f3f6));
+    background-image: -webkit-linear-gradient(top,#f9fafb,#f2f3f6);
+    background-image: -o-linear-gradient(top,#f9fafb 0,#f2f3f6 0);
+    background-image: linear-gradient(top,#f9fafb 0,#f2f3f6 0);
+    background-repeat: repeat-x;
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#f9fafb',endColorstr='#f2f3f6',GradientType=0);
+    -webkit-box-shadow: 0 1px rgba(0,0,0,0.05);
+    -moz-box-shadow: 0 1px rgba(0,0,0,0.05);
+    box-shadow: 0 1px rgba(0,0,0,0.05);
+  }
+  #report_content .sf_wrapper .labels .bool_op .toggle_side.active {
+    background: #dee0e2;
+    -webkit-box-shadow: inset 0 1px 3px #cfd2db;
+    -moz-box-shadow: inset 0 1px 3px #cfd2db;
+    box-shadow: inset 0 1px 3px #cfd2db;
+  }
+  #report_content .sf_wrapper .labels .bool_op .toggle_side.active:first-child {
+    border-right: 0;
+  }
+  #report_content .toggle_side:last-child {
+    border-right: 1px solid #bbc4d0;
+    -webkit-border-radius: 0 3px 3px 0;
+    -moz-border-radius: 0 3px 3px 0;
+    border-radius: 0 3px 3px 0;
+  }
+  .sf_wrapper .new_row .grey_vert {
+    left: 14px;
+    top: -15px;
+    height: 15px;
+  }
+  .subseg_label{
+    background: #dfe2ec;
+    width: 90px;
+    padding: 7px 0;
+    text-align: center;
+    display: block;
+    float: left;
+  }
+  .sf_second_dimension .subsegment_row {
+    padding-left: 97px;
+  }
+  #bookmark_name{
+    background-color: #34465f;
+    color: #F7EFEF;
+    border: 1px solid #2b3a51;
+    width: 250px;
+  }
+  #save_bookmark{
+    margin-left: 5px;
+  }
+  .bookmarks_add_widget .popover-content {
+    background: #263F57;
+    width: 330px;    
+  }
+
+.formula_entries .popover-content {
+  padding: 9px 35px 9px 14px;
+}
+
+ .formula_entries .popover.bottom .arrow {
+      left: 150px;
+  }
+
+.formula_entries .popover-title {
+  margin: 0;
+}
+
+  .bookmarks_add_widget .popover-title { 
+    display: none; 
+  }
+  .bookmarks_add_widget .popover {
+    position: absolute;
+    top: 38px;
+    display: block;
+    left: -305px !important;
+  }
+  .bookmarks_add_widget div.popover.fade.bottom.in{
+    position: absolute;
+    top: 38px;
+    display: block;
+    left: -315px !important;
+  }
+  .bookmarks_dropdown_widget .popover{
+    position: absolute;
+    top: 38px;
+    display: block;
+    left: -165px !important;
+  }
+  .bookmarks_add_widget div.popover.fade.bottom.in{
+    position: absolute;
+    top: 38px;
+    display: block;
+    left: -315px !important;
+  }
+  .bookmarks_add_widget .popover.bottom .arrow {
+      left: 335px;
+  }
+  .bookmarks_dropdown_widget .popover-content {
+    width: 330px;
+    padding: 0;
+  }
+  .bookmarks_dropdown_widget .popover.bottom .arrow {
+      left: 235px;
+  }
+  .bookmarks_dropdown_widget div.popover.fade.bottom.in{
+    position: absolute;
+    top: 38px;
+    display: block;
+    left: -160px !important;
+  }
+  #s_table_wrapper{
+    margin-bottom: 10px;
+  }
+  .sf_wrapper .labels .seg_label:last-child {
+    margin-bottom: 0;
+  }
+  table.dataTable thead th div.DataTables_sort_wrapper {
+    color: #838ca2;
+  }
+  table.dataTable thead th{
+    background: #edeff5;
+    border-right: 1px solid #ddd;
+  }
+
+  .bookmark_details{
+    border-bottom: 1px solid #D1D0D0;
+    padding: 10px;
+    color: #5e6482;
+  }
+  .bookmark_menu_item .remove-bookmark{
+    margin: 10px;
+    cursor: pointer;
+  }
+  .bookmark_menu_item .name{
+    font-weight: bold;
+  }
+  .new_row .fa-plus-circle {
+    font-size: 30px; color: #fff; margin: 15px 0 0 13px; cursor: pointer; position: relative;
+  }
+  .new_row .grey_vert {
+    left: 25px;
+top: -45px;
+height: 15px;
+color: white;
+position: relative;
+width: 1px;
+background: #bfcfda;
+  }
+  .rows .delete{
+    position: absolute;
+float: none;
+right: 20px;
+//top: 9px;
+
+//left: 380px;
+  }
+
+  .segfilter .property_filter, .segfilter .engage_property_filter {
+padding-bottom: 14px;
+}
+
+  .segfilter .property_filter:last-child, .segfilter .engage_property_filter:last-child {
+padding-bottom: 0;
+}
+
+.fa-trash-o{
+  cursor: pointer;
+}
+</style>
+</head>
+<!-- END HEAD -->
+
+<!-- BEGIN BODY -->
+<body class="sgm">
+<!-- BEGIN HEADER -->
+<div class="header navbar navbar-inverse "> 
+  <!-- BEGIN TOP NAVIGATION BAR -->
+  <div class="navbar-inner">
+  <div class="header-seperation"> 
+    <ul class="nav pull-left notifcation-center" id="main-menu-toggle-wrapper" style="display:none">  
+      <li class="dropdown"> <a id="main-menu-toggle" href="#main-menu"  class="" > <div class="iconset top-menu-toggle-white"></div> </a> </li>     
+    </ul>
+      <!-- BEGIN LOGO --> 
+      <a href="index.html"><img src="images/sogamo_small_w.png" class="logo" alt=""  data-src="images/sogamo_small_w.png" data-src-retina="images/sogamo_small_w.png" width="106" height="21"/></a>
+
+      <!-- END LOGO --> 
+      <ul class="nav pull-right notifcation-center">  
+        <li class="dropdown" id="header_task_bar"> <a href="index.html" class="dropdown-toggle active" data-toggle=""> <div class="iconset top-home"></div> </a> </li>
+        
+    <li class="dropdown" id="portrait-chat-toggler" style="display:none"> <a href="#sidr" class="chat-menu-toggle"> <div class="iconset top-chat-white "></div> </a> </li>        
+      </ul>
+      </div>
+      <!-- END RESPONSIVE MENU TOGGLER --> 
+      <div class="header-quick-nav" > 
+      <!-- BEGIN TOP NAVIGATION MENU -->
+    <div class="pull-left"> 
+        <ul class="nav quick-section">
+          <li class="quicklinks"> <a href="#" class="" id="layout-condensed-toggle" >
+            <div class="iconset top-menu-toggle-dark"></div>
+            </a> </li>
+        </ul>
+        <ul class="nav quick-section">
+          <li class="quicklinks"> <a href="javascript:window.reload();" class="" >
+            <div class="iconset top-reload"></div>
+            </a> </li>
+      </ul>
+    </div>
+   <!-- END TOP NAVIGATION MENU -->
+   <!-- BEGIN CHAT TOGGLER -->
+   <div class="pull-right">
+     <ul class="nav quick-section ">
+      <li class="quicklinks"> 
+        <a data-toggle="dropdown" class="dropdown-toggle  pull-right " href="#" id="user-options">            
+          <div class="iconset top-settings-dark "></div>  
+        </a>
+        <ul class="dropdown-menu  pull-right" role="menu" aria-labelledby="user-options">
+          <li><a href="user-profile.html"> My Apps </a></li>
+          <li class="divider"></li> 
+          <li><a href="user-profile.html"> Settings </a></li>
+          <li class="divider"></li>                
+          <li><a href="login.html"><i class="fa fa-power-off"></i>&nbsp;&nbsp;Log Out</a></li>
+        </ul>
+      </li> 
+      
+    </ul>
+      </div>
+     <!-- END CHAT TOGGLER -->
+      </div> 
+      <!-- END TOP NAVIGATION MENU --> 
+   
+  </div>
+  <!-- END TOP NAVIGATION BAR --> 
+</div>
+<!-- END HEADER -->
+<!-- BEGIN CONTAINER -->
+<div class="page-container row-fluid">
+  <!-- BEGIN SIDEBAR -->
+  <div class="page-sidebar" id="main-menu"> 
+  <!-- BEGIN MINI-PROFILE -->
+   <div class="user-info-wrapper">  
+  <div class="profile-wrapper">
+    <img src="assets/img/profiles/avatar.png"  alt="" data-src="assets/img/profiles/avatar.png" data-src-retina="assets/img/profiles/avatar.png" width="69" height="69" />
+  </div>
+    <div class="user-info">
+      <div class="greeting">Welcome</div>
+      <div class="username">Mark</div>
+    </div>
+   </div>
+  <!-- END MINI-PROFILE -->
+   
+  <!-- BEGIN SIDEBAR MENU -->  
+  <p class="menu-title">BROWSE <span class="pull-right"><a href="javascript:;"><i class="fa fa-refresh"></i></a></span></p>
+  <ul>
+        <li><a href="#"><i class="icon-custom-home"></i><span class=
+        "title">Dashboard</span><span class="selected"></span><span class="arrow open"></span></a>
+            <ul class="sub-menu">
+                <li>
+                  <a href="javascript:;"><span class="title">User Activity</span> <span class="arrow "></span></a>
+                  <ul class="sub-menu">
+                     <li > <a href="activeusers.html"> Active Users </a> </li>
+                     <li > <a href="javascript:;"> Session </a> </li>
+                     <li > <a href="javascript:;"> Retention </a> </li>
+                     <li > <a href="acquisition.html"> User Acquisition </a> </li>
+                     <li > <a href="javascript:;"> Install </a> </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#"><span class="title">Real Monetization</span> <span class="arrow "></span></a>
+                  <ul class="sub-menu">
+                     <li > <a href="javascript:;"> Revenue </a> </li>
+                     <li > <a href="payingusers.html"> Paying Users </a> </li>
+                     <li > <a href="javascript:;"> Purchase </a> </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#"><span class="title">Application Activity</span> <span class="arrow "></span></a>
+                  <ul class="sub-menu">
+                     <li > <a href="javascript:;"> Virtual Commerce </a> </li>
+                     <li > <a href="topsellingitems.html"> Top Selling Items </a> </li>
+                     <li > <a href="javascript:;"> Purchase </a> </li>
+                     <li > <a href="javascript:;"> Round </a> </li>
+                     <li > <a href="level.html"> Level </a> </li>
+                  </ul>
+                </li>
+                <li>
+                  <a href="#"><span class="title">User Action</span> <span class="arrow "></span></a>
+                  <ul class="sub-menu">
+                     <li > <a href="actionmonitoring.html"> Action Monitoring </a> </li>
+                     <li > <a href="javascript:;"> Funnels </a> </li>
+                  </ul>
+                </li>
+                <li><a href="#">Users</a></li>
+                <li><a href="#">Virality</a></li>
+            </ul>
+        </li>
+        <li class="open"><a href="#"><i class="fa fa-envelope"></i><span class=
+        "title">Messaging</span><span class="arrow"></span></a>
+            <ul class="sub-menu" style="overflow: hidden; display: block;">
+                <li class="active sgm"><a href="messaging.html">Manage Messages</a></li>
+
+                <li><a href="#">Messaging Performance</a></li>
+
+                <li><a href="#">URL Tracking</a></li>
+
+                <li><a href="#">Template</a></li>
+            </ul>
+        </li>
+        <li class=""><a href="segmentation.html"><i class="fa fa-dot-circle-o"></i><span class=
+        "title">Segmentation</span></a></li>
+    <li class=""><a href="formulas.html"><i class="fa fa-building-o"></i><span class=
+        "title">Formulas</span></a></li>
+        <li class=""><a href="#"><i class="fa fa-group"></i><span class=
+        "title">Cohort Analysis</span></a></li>
+        <li class=""><a href="#"><i class="icon-custom-chart"></i><span class=
+        "title">Customized Charts</span></a></li>
+        <li class=""><a href="#"><i class="fa fa-bullhorn"></i><span class=
+        "title">Suggestions</span><span class="arrow"></span></a>
+            <ul class="sub-menu">
+                <li><a href="#">Manage Suggestions</a></li>
+                <li><a href="#">Suggestion Response</a></li>
+            </ul>
+        </li>
+        <li class=""><a href="#"><i class="icon-custom-chart"></i><span class=
+        "title">My Apps</span></a></li>
+    </ul>
+  
+    <a href="#" class="scrollup">Scroll</a>
+    <div class="clearfix"></div>
+      <!-- END SIDEBAR MENU --> 
+    </div>
+     <div class="footer-widget"> 
+        <div class="pull-right"><a href="lockscreen.html"><i class="fa fa-power-off"></i></a></div>
+    </div>
+    <!-- END SIDEBAR --> 
+        <!-- BEGIN PAGE CONTAINER-->
+
+    <div class="page-content"> 
+      <div class="clearfix"></div>
+      
+      <div class="content">  
+        <div class="page-title">  <!--<h3>Content Here</h3> --></div>    
+
+        <!--BEGIN FILTER  -->
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="grid simple ">
+              <div class="grid-title" style="background-color: #eff1f6; height: 35px">
+                <h4><span class="semi-bold">New Formula</span></h4>
+
+                <!--<div style="width: 200px; display: inline-block">
+                  <select name="form3Gender" id="form3Gender" class="select2 form-control">
+                    <option>Buy item</option>
+                    <option>Fight Another Player</option>
+                    <option>Sign in</option>
+                  </select>
+                </div>-->
+
+
+                <div id="bookmark_picker" style="position: relative; bottom: 5px; float: right">
+                  <div style="display: inline-block" class="bookmarks_dropdown_widget">
+                    <div class="bookmarks_dropdown_widget_head">
+                      <button type="button" class="btn btn-white dropdown-toggle" id="show_bookmarks"  data-toggle="popover" data-original-title="Your Bookmarks" style="position: relative; left: 6px"><i class="fa fa-bookmark" style="padding-right: 10px;"></i>Bookmarks</button>
+                    </div>
+                    <div class="bookmarks_dropdown_widget_body">
+                      <div id="show_bookmark_popup" style="display:none">
+                        <div class="items_container">      
+                                          
+                          <div class="bookmark_menu_item">
+                              <div class="remove-bookmark" style="float: right">x</div>
+                              <div class="bookmark_details" id="bookmark_43244242">
+                                <div class="name">Buy Item by Country</div>
+                                <div class="creator">John Doe</div>
+                              </div>
+
+                          </div>
+                          <div class="bookmark_menu_item">
+                              <div class="remove-bookmark" style="float: right">x</div>
+                              <div class="bookmark_details" id="bookmark_525233">
+                                <div class="name">Sign In by Country and Browser</div>
+                                <div class="creator">Jane Doe</div>
+                              </div>
+
+                          </div>
+                        </div>        
+                      </div> 
+
+
+                    </div>
+
+                  </div>   
+                  <div style="display: inline-block; right: 0; position: relative" class="bookmarks_add_widget">                    
+
+                    <div style="display: inline-block" class="bookmarks_add_widget">
+                    <div class="bookmarks_add_widget_head">
+                      <button type="button" class="btn btn-white dropdown-toggle" id="save_bookmark" data-toggle="popover" data-original-title=""><i class="fa fa-plus"></i></button>   
+                    </div>
+                    <div class="bookmarks_add_widget_body">
+                      <div id="save_bookmark_popup" style="display:none">
+                        <div>                          
+                          <input type="text" placeholder="Save new Bookmark as ..." id="bookmark_name">
+                          <button type="button" class="btn btn-primary btn-sm btn-small" style="margin: 5px; padding: 3px; 10px">SAVE</button>
+                        </div>        
+                      </div>
+                    </div>
+
+                  </div>   
+                </div>
+
+              </div>
+            </div>
+
+              <div class="grid-body" style="padding: 0">
+                <div class="formula_builder">
+                  <div class="numerator">            
+
+                    <div style="display: inline-block; right: 0; position: relative" class="formula_entries">  
+                       
+                          <div class="formula_entry default" id="formula_12323" data-toggle="popover" >
+                            <div class="entry_name mp_tooltip_enabled">A</div>    
+
+
+                            <div class="formula_num_widget_body" style="display:none">
+
+                                <div class="formula_popup_head frmlh_234423">
+                                  <input type="radio" name="user" value="total" style="margin: 0 10px">Total
+                                  <input type="radio" name="user" value="unique" style="margin: 0 10px">Unique
+                                </div>
+                                <div class="formula_popup_body frmlb_234423">
+                                  <div class="filter_list" style="width: auto">
+                                    <div class="segfilter">
+                                      <div class="rows">
+                                        <div id="jswidget_52285212081" class="property_filter" style="width: auto; white-space: nowrap">
+                                          <div class="property_dropdown filterable_dropdown" id="jswidget_4142497236259">
+                                            <select id="jswidget_8831213686" onchange="expandFilter(this.value, this.id)" class="select2 selectWithSearch" style="width: 155px">
+                                              <option value="jswidget_001">Events</option>
+                                              <option value="jswidget_002">City</option>
+                                              <option value="jswidget_003">Country</option>
+                                              <option value="jswidget_004">Phone Type</option>
+                                              <option value="jswidget_005">Acquisition Source</option>
+                                              <option value="jswidget_006">Operating System</option>
+                                              <option value="jswidget_007">Game</option>
+                                              <option value="jswidget_008">Time Period</option>
+                                            </select>
+                                          </div>
+
+                                          <div class="rule" style="display: inline-block"></div>
+                                          <div class="delete_button icon_button delete" id="jswidget_495791901" onclick="removeThisRow(this.id)" style="display: inline-block">
+                                            <div style="font-weight: bold; padding-left: 10px; font-size: 20px; cursor: pointer; color: #9B9595">x</div>
+                                          </div>                
+                                      </div>
+                                      </div>
+                                      <div class="new_row">
+                                        <i class="fa fa-plus-circle" style="" id="formula_5353594385" onclick="addNewRow(this.id)"></i>
+                                        <div class="grey_vert">                                    
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                  </div>
+
+                                  <div>
+                                    <i class="fa fa-trash-o" id="formula_44234" onclick="removeThisEntry(this.id)"></i>
+                                  </div>
+                                </div>
+                              </div>  
+
+                            </div>   
+                    </div>
+
+                    <div class="add_entry">
+                      <button type="button" disabled class="btn btn-link btnAddAction" style="min-width: 5px; margin: 0;">
+                        <i class="fa fa-plus-circle add add-element" style="font-size: 25px"></i>
+                      </button>      
+                    </div>
+                  </div>
+                  <div class="division_divider">
+                    <div class="symbol"></div>
+                  </div>
+                  <div class="denominator">
+
+                    <div style="display: inline-block; right: 0; position: relative" class="formula_entries"> 
+                          <div class="formula_entry default" id="formula_42424" data-toggle="popover" >
+                            <div class="entry_name mp_tooltip_enabled">B</div>    
+
+
+                            <div class="formula_num_widget_body_1" style="display:none">
+
+                                <div class="formula_popup_head frmlh_3241">
+                                  <input type="radio" name="user" value="total" style="margin: 0 10px">Total
+                                  <input type="radio" name="user" value="unique" style="margin: 0 10px">Unique
+                                </div>
+                                <div class="formula_popup_body frmlb_3241">
+                                  <div class="filter_list" style="width: auto">
+                                    <div class="segfilter">
+                                      <div class="rows">
+                                        <div id="jswidget_95423995" class="property_filter" style="width: auto; white-space: nowrap">
+                                          <div class="property_dropdown filterable_dropdown" id="jswidget_4972346259">
+                                            <select id="jswidget_24434" onchange="expandFilter(this.value, this.id)" class="select2 selectWithSearch" style="width: 155px">
+                                              <option value="jswidget_001">Events</option>
+                                              <option value="jswidget_002">City</option>
+                                              <option value="jswidget_003">Country</option>
+                                              <option value="jswidget_004">Phone Type</option>
+                                              <option value="jswidget_005">Acquisition Source</option>
+                                              <option value="jswidget_006">Operating System</option>
+                                              <option value="jswidget_007">Game</option>
+                                              <option value="jswidget_008">Time Period</option>
+                                            </select>
+                                          </div>
+
+                                          <div class="rule" style="display: inline-block"></div>
+                                          <div class="delete_button icon_button delete" id="jswidget_4957942319401" onclick="removeThisRow(this.id)" style="display: inline-block">
+                                            <div style="font-weight: bold; padding-left: 10px; font-size: 20px; cursor: pointer; color: #9B9595">x</div>
+                                          </div>                
+                                      </div>
+                                      </div>
+                                      <div class="new_row">
+                                        <i class="fa fa-plus-circle" style="" id="formula_49429340" onclick="addNewRow(this.id)"></i>
+                                        <div class="grey_vert">                                    
+                                        </div>
+                                      </div>
+                                    </div>
+
+                                  </div>
+
+                                  <div>
+                                    <i class="fa fa-trash-o" id="formula_44234" onclick="removeThisEntry(this.id)"></i>
+                                  </div>
+                                </div>
+                              </div>  
+
+                            </div>   
+                    </div>
+
+
+
+
+
+                    <div class="add_entry no_entries">
+                      
+                      <button type="button" disabled class="btn btn-link btnAddAction" style="min-width: 5px; margin: 0;">
+                        <i class="fa fa-plus-circle add add-element" style="font-size: 25px"></i>
+                      </button>
+
+                    </div>
+                  </div>
+                </div>
+
+               </div>
+          </div>
+        </div>
+        <!--END FILTER -->    
+
+        <!--BEGIN SEGMENTATION CHART-->
+        <div class="row-fluid">
+          <div class="span12">
+            <div class="grid simple ">
+              <div class="grid-title" style="background-color: #eff1f6">
+               
+                <!--<div class="tools"> <a href="javascript:;" class="collapse"></a> <a href="#grid-config" data-toggle="modal" class="config"></a> <a href="javascript:;" class="reload"></a> <a href="javascript:;" class="remove"></a> </div>-->
+                <div id="jswidget_284425542" style="display: inline-block">
+                  <span class="field">
+                    <input style="width: 110px" type="text" id="from" name="from" readonly="readonly">
+                  </span>
+                  <span style="padding-left: 8px"> - </span>
+                  <span class="field" style="margin-left: 5px">
+                    <input style="width: 110px" type="text" id="to" name="to" readonly="readonly">
+                  </span>
+                  <span>
+                    <button type="button" class="btn btn-success btn-cons" style="margin-left: 10px" onclick="reloadView()">DONE</button>
+                  </span>
+                </div>
+                <div id="jswidget_424242" style="display: inline-block; float: right">
+
+
+                  <div style="width: 100px; display: inline-block">
+                    <select name="timeInterval" id="timeInterval" class="select2 form-control dropdown_nosearch">
+                      <option value="hour">Hour</option>
+                      <option value="day">Day</option>
+                      <option value="week">Week</option>
+                      <option value="month">Month</option>
+                    </select>
+                  </div>
+
+                </div>
+              </div>
+              <div class="grid-body ">
+                <div id="container" style="min-width: 310px; height: 400px; margin: 0 auto"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <!--END SEGMENTATION CHART -->
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+   
+  </div>
+ </div>
+<!-- END CONTAINER --> 
+
+<!-- END CONTAINER -->
+
+<!-- BEGIN CORE JS FRAMEWORK--> 
+<script src="assets/plugins/jquery-1.8.3.min.js" type="text/javascript"></script> 
+<script src="assets/plugins/jquery-ui/jquery-ui-1.10.1.custom.min.js" type="text/javascript"></script> 
+<script src="assets/plugins/bootstrap/js/bootstrap.min.js" type="text/javascript"></script> 
+<script src="assets/plugins/breakpoints.js" type="text/javascript"></script> 
+<script src="assets/plugins/jquery-unveil/jquery.unveil.min.js" type="text/javascript"></script> 
+<script src="assets/plugins/jquery-block-ui/jqueryblockui.js" type="text/javascript"></script> 
+<script src="assets/plugins/data-tables/jquery.dataTables.js" type="text/javascript"></script> 
+<script src="assets/plugins/sgm-multiple-select-master/jquery.multiple.select.js" type="text/javascript"></script> 
+<script src="assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-timepicker/js/bootstrap-timepicker.min.js" type="text/javascript"></script>
+<!-- END CORE JS FRAMEWORK --> 
+
+<!-- BEGIN PAGE LEVEL PLUGINS -->
+<script src="assets/plugins/bootstrap-wysihtml5/wysihtml5-0.3.0.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-wysihtml5/bootstrap-wysihtml5.js" type="text/javascript"></script>
+<script src="assets/plugins/fancybox/source/jquery.fancybox.pack.js" type="text/javascript"></script>
+<script src="assets/plugins/hc/highcharts.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->
+
+<!-- BEGIN PAGE LEVEL JS -->  
+<script src="assets/plugins/jquery-slider/jquery.sidr.min.js" type="text/javascript"></script>  
+<script src="assets/plugins/jquery-slimscroll/jquery.slimscroll.min.js" type="text/javascript"></script> 
+<script src="assets/plugins/pace/pace.min.js" type="text/javascript"></script>  
+<script src="assets/plugins/jquery-numberAnimate/jquery.animateNumbers.js" type="text/javascript"></script>
+<script src="assets/plugins/bootstrap-select2/select2.min.js" type="text/javascript"></script>
+<!-- END PAGE LEVEL PLUGINS -->   
+
+<!-- BEGIN CORE TEMPLATE JS --> 
+
+<script type="text/javascript" src="http://www.google.com/jsapi"></script>
+
+
+<!-- END CORE TEMPLATE JS --> 
+
+
+<script type="text/javascript">   
+
+  var chartOptions;
+  var action_chart;
+
+  var s_properties = '<option value="jswidget_001">Events</option><option value="jswidget_002">City</option><option value="jswidget_003">Country</option><option value="jswidget_004">Phone Type</option><option value="jswidget_005">Acquisition Source</option><option value="jswidget_006">Operating System</option><option value="jswidget_007">Game</option><option value="jswidget_008">Time Period</option>';
+  var s_filter = '<option value="100">equals</option><option value="101">does not equal</option><option value="102" selected>contains</option><option value="103">does not contain</option><option value="104">is set</option><option value="105">is not set</option>';
+
+
+  var boolcontainer = '<div class="bool_op toggle_container" id="jswidget_'+Math.round(Math.random()*1000000)+'" val="and"><div class="toggle" style="position: relative;"><button type="button" class="btn btn-default btn-sm btn-small bool_toggle" style="padding: 7px 12px" onclick="getBoolOption(1)" id="button_and">AND</button><button type="button" id="button_or" class="btn btn-white btn-sm btn-small bool_toggle" style="padding: 7px 12px" onclick="getBoolOption(0)">OR</button></div></div>';
+     
+  var alphabet = "abcdefghijklmnopqrstuvwxyz".split("");
+  var count = 2;
+  var fcount = 0;
+
+
+  $(document).ready(function() {
+    var resp = [];
+
+    $(".dropdown_nosearch").select2({
+      minimumResultsForSearch: -1
+    });
+
+    $("#from").datepicker({ format: "yyyy-mm-dd", autoclose: true, todayHighlight: true});
+    $("#to").datepicker({ format: "yyyy-mm-dd", autoclose: true, todayHighlight: true});
+
+    $("#timeInterval").select2({
+      minimumResultsForSearch: -1
+    });
+
+    loadActionChart();    
+
+    $( '.formula_entries' ).on( 'mouseover', '.formula_entry', function () { 
+      $(this).css("border","2px solid #499ECE");
+      $(this).css("background-color","#f7f8f9");
+      $(this).find(".entry_name").css("color", "#747d94");
+    });
+
+    $( '.formula_entries' ).on( 'mouseout', '.formula_entry', function () { 
+      $(this).css("border","2px solid #cad0d9");
+      $(this).css("background-color","#f7f8f9");
+      $(this).find(".entry_name").css("color", "#747d94");
+    });
+
+    $( '.formula_entries' ).on( 'click', '.formula_entry', function () { 
+      $(this).css("background-color","#60aceb");
+      $(this).css("border","2px solid #4d9ad9");
+      $(this).find(".entry_name").css("color", "#fff");
+    });
+
+  $(".formula_builder .btnAddAction .add").click(function(){
+
+    var $d = $(this).parent().parent().parent(); // numerator
+   $(this).parent().prop("disabled", true);
+
+   var alphalabel = alphabet[count++];
+
+    $d.find(".formula_entries .formula_entry").removeClass("default");
+   // $d.find(".formula_entries").append('<div class="formula_operator"><div class="operator_tooltip" style="display: none"><i class="op_choice fa fa-plus-square-o add selected"></i><i class="op_choice subtract fa fa-minus-square-o"></i><i class="op_choice multiply fa fa-times-circle"></i><i class="op_separator fa"> | </i><i class="toggle_paren fa">(A+B)</i></div><button type="button" class="btn btn-link"><i class="fa fa-plus-square-o" style="font-size: 25px"></i></button></div><div class="formula_entry default" id="formula_'+Math.round(Math.random()*1000000)+'"><div class="entry_name mp_tooltip_enabled">'+alphalabel.toUpperCase()+'</div><div class="selector_tooltip"></div></div>');
+
+var r = Math.round(Math.random()*1000000);
+
+$d.find(".formula_entries").append(
+'<div class="formula_operator">'+
+ ' <div class="operator_tooltip" style="display: none">'+
+  '  <i class="op_choice fa fa-plus-square-o add selected"></i>'+
+  '  <i class="op_choice subtract fa fa-minus-square-o"></i>'+
+  '  <i class="op_choice multiply fa fa-times-circle"></i>'+
+  '  <i class="op_separator fa"> | </i>'+
+  '  <i class="toggle_paren fa">(A+B)</i>'+
+ ' </div>'+
+  '<button type="button" class="btn btn-link">'+
+ '   <i class="fa fa-plus-square-o" style="font-size: 25px"></i></button>'+
+'</div>'+
+'<div class="formula_entry default" id="formula_'+Math.round(Math.random()*1000000)+'">'+
+   '   <div class="entry_name mp_tooltip_enabled">'+alphalabel.toUpperCase()+'</div>'+
+ '     <div class="formula_num_widget_body" style="display:none">'+
+  '      <div class="formula_popup_head frmlh_'+r+'">'+
+   '       <input type="radio" name="user" value="total" style="margin: 0 10px">Total'+
+    '      <input type="radio" name="user" value="unique" style="margin: 0 10px">Unique'+
+    '    </div>'+
+    '    <div class="formula_popup_body frmlb_'+r+'">'+
+    '      <div class="filter_list" style="width: auto">'+
+     '     <div class="segfilter">'+
+      '      <div class="rows">'+
+       '       <div id="jswidget_'+Math.round(Math.random()*1000000)+'" class="property_filter" style="width: auto; white-space: nowrap">'+
+       '         <div class="property_dropdown filterable_dropdown" id="jswidget_'+Math.round(Math.random()*1000000)+'">'+
+       '           <select id="jswidget_'+Math.round(Math.random()*1000000)+'" onchange="expandFilter(this.value, this.id)" class="select2 selectWithSearch" style="width: 155px">'+
+       '             <option value="jswidget_001">Events</option>'+
+       '             <option value="jswidget_002">City</option>'+
+       '             <option value="jswidget_003">Country</option>'+
+       '             <option value="jswidget_004">Phone Type</option>'+
+       '             <option value="jswidget_005">Acquisition Source</option>'+
+       '             <option value="jswidget_006">Operating System</option>'+
+       '             <option value="jswidget_007">Game</option>'+
+       '             <option value="jswidget_008">Time Period</option>'+
+       '           </select>'+
+       '         </div>'+
+       '         <div class="rule" style="display: inline-block"></div>'+
+       '         <div class="delete_button icon_button delete" id="jswidget_'+Math.round(Math.random()*1000000)+'" onclick="removeThisRow(this.id)" style="display: inline-block">'+
+       '           <div style="font-weight: bold; padding-left: 10px; font-size: 20px; cursor: pointer; color: #9B9595">x</div>'+
+       '         </div>'  + 
+       '       </div>'+
+       '     </div>'+
+       '     <div class="new_row">'+
+       '       <i class="fa fa-plus-circle" style="" id="formula_'+Math.round(Math.random()*1000000)+'" onclick="addNewRow(this.id)"></i>'+
+       '       <div class="grey_vert"></div> '+
+       '     </div>'+
+       '     </div>'+
+        '  </div>'+
+        '  <div>'+
+        '  <i class="fa fa-trash-o" id="formula_'+Math.round(Math.random()*1000000)+'" onclick="removeThisEntry(this.id)"></i>'+
+        '  </div>'+
+      '  </div>'+
+     ' </div> '+
+'</div>');
+
+
+
+
+
+
+    var num_formula_count = $(".formula_builder").find(".numerator .formula_entry").length;
+    var den_formula_count = $(".formula_builder").find(".denominator .formula_entry").length;
+
+    if(num_formula_count == 4){
+      $(".formula_builder").find(".numerator .add_entry").hide();
+    }
+
+    if(den_formula_count == 4){
+      $(".formula_builder").find(".denominator .add_entry").hide();
+    }
+                      
+
+  });
+    
+
+  $( '.formula_entries' ).on( 'click', '.formula_operator .fa-plus-square-o', function () { 
+     $('.formula_operator').popover({ 
+      html : true, 
+      placement:"bottom",
+      content: function() {
+      return $('.operator_tooltip').html();
+      }   
+
+    });
+  });
+
+
+  
+  $( '.formula_builder' ).on( 'click', '.popover .add', function () {   
+
+    $(this).parent().parent().prev().find(".btn-link").html('<i class="fa fa-plus-square-o" style="font-size: 25px"></i>');
+  });
+
+  $( '.formula_builder' ).on( 'click', '.popover .subtract', function () { 
+    $(this).parent().parent().prev().find(".btn-link").html('<i class="fa fa-minus-square-o" style="font-size: 25px"></i>');
+  });
+
+  $( '.formula_builder' ).on( 'click', '.popover .multiply', function () { 
+    $(this).parent().parent().prev().find(".btn-link").html('<i class="fa fa-times-circle" style="font-size: 25px"></i>');
+  });
+
+  //$(".selector_tooltip").popover();
+
+  $(".datatype").prop("disabled", true);
+
+    $('#save_bookmark').popover({ 
+      html : true, 
+      placement: "bottom",
+      content: function() {
+        return $('#save_bookmark_popup').html();
+      },
+      animation: false
+    });
+
+    $('#show_bookmarks').popover({ 
+      html : true, 
+      placement: "bottom",
+      content: function() {
+        return $('#show_bookmark_popup').html();
+      },
+      animation: false
+    });
+
+    /* close all popover when click outside*/
+   /* $('body').on('click', function (e) {
+        $('[data-toggle="popover"]').each(function () {
+
+            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
+
+                $(this).popover('hide');
+            }
+        });
+    }); */
+
+    $( '.formula_builder' ).on( 'click', '.popover .toggle_paren', function () { 
+
+      var r = Math.round(Math.random()*1000000);
+
+    if($(this).hasClass("selected") || $(this).parent().parent().prev().hasClass("parenActive")){
+      
+
+      //$(this).removeClass(cid);
+      $(this).removeClass("parenActive");
+      $(this).parent().parent().prev().removeClass("parenActive");
+
+
+      var c = $(this).parent().parent().prev().attr("class");
+      var cs = c.split(" ");
+      var cid = cs[1].substring(9) ;
+   
+    
+
+      $(this).removeClass("parenth_"+cid);
+      $(this).removeClass("selected");
+      $(this).parent().parent().prev().removeClass("parenthe_"+cid);
+      $(".paren_"+cid).remove();
+
+
+    }else{      
+      $(this).addClass("selected");   
+      $(this).addClass("parenth_"+r);
+
+      $(this).parent().parent().prev().addClass("parenActive");
+      $(this).parent().parent().prev().addClass("parenthe_"+r);
+
+      var prevBool = $(this).parent().parent().prev().prev().hasClass("formula_paren");
+      var nextBool = $(this).parent().parent().next().hasClass("formula_paren");
+      var prevleft = $(this).parent().parent().prevAll(".left:first").attr("id");       
+      var nextright = $(this).parent().parent().nextAll(".right:first").attr("id");
+
+      if(prevBool == true && nextBool == false){
+        var checkMore = $(this).parent().parent().prev().prev().prev().hasClass("formula_paren");
+        
+        $('<div class="formula_paren right paren_'+r+'" style="display: inline-block; width: 15px; font-size: 40px;">)</div>').insertAfter($(this).parent().parent().next());
+        var cname = $(this).parent().parent().prev().prev().attr("class");
+        var c = cname.split(" ");
+        $('<div class="formula_paren left paren_'+r+'" style="display: inline-block; width: 15px; font-size: 40px;">(</div>').insertBefore($(this).parent().parent().parent().find($(".left."+c[2])));
+
+      }else if(nextBool == true && prevBool == false){
+        
+
+        var cname = $(this).parent().parent().next().attr("class");
+        var c = cname.split(" ");
+        $('<div class="formula_paren left paren_'+r+'" style="display: inline-block; width: 15px; font-size: 40px;">(</div>').insertBefore($(this).parent().parent().prev().prev());
+        $('<div class="formula_paren right paren_'+r+'" style="display: inline-block; width: 15px; font-size: 40px;">)</div>').insertAfter($(this).parent().parent().parent().find($(".right."+c[2])));
+
+      }else if(nextBool== true && prevBool == true){
+       
+        $(this).parent().parent().parent().prepend('<div class="formula_paren left paren_'+r+'" id="formula_'+r+'" style="display: inline-block; width: 15px; font-size: 40px;">(</div>');
+        $(this).parent().parent().parent().append('<div class="formula_paren right paren_'+r+'" id="formula_'+r+'" style="display: inline-block; width: 15px; font-size: 40px;">)</div>');
+      }else{
+        
+        var prevleft = $(this).parent().parent().prevAll(".formula_entry:first").attr("id");
+        var nextright = $(this).parent().parent().nextAll(".formula_entry:first").attr("id");
+        $('<div class="formula_paren left paren_'+r+'" id="formula_'+Math.round(Math.random()*1000000)+'" style="display: inline-block; width: 15px; font-size: 40px;">(</div>').insertBefore($("#"+prevleft));
+        $('<div class="formula_paren right paren_'+r+'" id="formula_'+Math.round(Math.random()*1000000)+'" style="display: inline-block; width: 15px; font-size: 40px;">)</div>').insertAfter($("#"+nextright));
+      }
+    }                                       
+
+  });
+
+
+
+    $( '.formula_builder' ).on( 'click', '.formula_entry', function () { 
+      //$(this).find(".entry_name").html("SignUp");
+      console.log("HELLO");
+
+      var cl = $(this).find(".formula_popup_head").attr("class");
+      var ca = cl.split(" ");
+      var cb = ca[1].substring(6); 
+      console.log("CCC: " +cb);
+
+      $(this).parent().parent().find(".add_entry .btnAddAction").removeAttr("disabled");
+      console.log("DD: " +$(this).attr("id"));
+        $(this).popover({ 
+          html : true, 
+          placement: "bottom",
+          title: function(){
+          return $(this).find('.frmlh_'+cb).html();
+          },
+          content: function() {
+            return $(this).find('.frmlb_'+cb).html();
+          },
+          animation: false,
+        });
+
+
+    });
+
+   
+
+  });
+
+
+
+function expandFilter(x, y){
+  var poc = $("#"+y).parent().parent().attr("id");
+  console.log("AAA:  "+poc);
+  var b = '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" style="display: inline-block; padding-right: 4px;padding-left: 4px;"><select style="width: 150px">'+s_filter+'</select></div>';
+   
+  var d = $(".popover-content #"+y +" option:selected").text();
+  console.log("BBB:  "+d);
+  console.log("CCC:  "+y);
+
+  if(d == "Events"){
+      b += '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" style="display: inline-block"><select id="third_filter" class="selectWithSearch"><option>Sign In</option><option>Buy Item</option></option></select></div>';   
+   
+    }if(d == "Browser"){
+      b += '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" style="display: inline-block"><select id="third_filter" class="selectWithSearch"><option>Chrome</option><option>Safari</option></option></select></div>';
+  
+    }if(d == "Game"){
+      b += '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" style="display: inline-block"><select id="third_filter" class="selectWithSearch"><option>Mighty Dungeon</option><option>Flappy Bird</option></option></select></div>';       
+  
+    }else if(d == "City" || d == "Country"){
+      b += '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" style="display: inline-block"><select id="third_filter" class="selectWithSearch"><option>Singapore</option></select></div>'; 
+ 
+    }else if(d == "Time Period"){
+      b += '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" style="display: inline-block; vertical-align: bottom"><input style="width: 110px" type="text" id="seg_from" name="seg_from" readonly="readonly"><input style="width: 110px; margin-left: 10px" type="text" id="seg_to" name="seg_to" readonly="readonly"></div>'; 
+
+      //*$("#"+poc +" .rule").find("div:nth-child(2)").remove();
+      //$("#"+poc +" .rule").append(b);
+      $("#"+poc).find("#seg_from").datepicker({ format: "yyyy-mm-dd", autoclose: true, todayHighlight: true});
+      $("#"+poc).find("#seg_to").datepicker({ format: "yyyy-mm-dd", autoclose: true, todayHighlight: true});
+
+
+    }else if(d == "Acquisition Source" || d == "Initial Referring Dom"){
+      b += '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" style="display: inline-block"><select id="third_filter" class="selectWithSearch"><option>$direct</option></select></div>'; 
+  
+    }else if(d == "Operating System"){
+      b += '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" style="display: inline-block"><select id="third_filter" class="selectWithSearch"><option>Select a value</option><option>Chrome</option><option>Safari</option></select></div>'; 
+
+    }else if(d == "Phone Type"){
+      b += '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" style="display: inline-block"><select id="third_filter" class="selectWithSearch"><option>Iphone 5s</option><option>Note 3</option><option>S4</option></select></div>'; 
+      
+    }
+     $("#"+poc).find(".rule").html(b); 
+    $(".popover-content #"+poc).find(".rule").html(b);   
+
+}
+
+
+function addNewRow(eid){
+
+  var pid = $("#"+eid).parent().parent().parent().parent().parent().parent().attr("id");
+  console.log("pid: " +pid);
+
+  console.log("--" +s_properties);
+  var c = '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" class="property_filter" style="width: auto; white-space: nowrap">'+
+                                    '<div class="property_dropdown filterable_dropdown" id="jswidget_'+Math.round(Math.random()*1000000)+'">'+
+                                      '<select id="jswidget_'+Math.round(Math.random()*1000000)+'" onchange="expandFilter(this.value, this.id)" class="select2 selectWithSearch" style="width: 155px">'+
+                                      s_properties+
+                                      '</select>'+
+                                    '</div>'+
+                                    '<div class="rule" style="display: inline-block"></div>'+
+                                    '<div class="delete_button icon_button delete" id="jswidget_'+Math.round(Math.random()*1000000)+'" onclick="removeThisRow(this.id)" style="display: inline-block">'+
+                                      '<div style="font-weight: bold; padding-left: 10px; font-size: 20px; cursor: pointer; color: #9B9595">x</div>'+
+                                    '</div>'+                 
+                                '</div>';
+
+  $("#"+pid).find(".segfilter .rows").append(c);
+  $("#"+pid).next().find(".segfilter .rows").append(c);
+
+}
+
+function removeThisEntry(x){
+
+  alert("trash: " +x);
+  //console.log("--dd-- " +$("#"+x).parent().parent().parent().parent().attr("id"));
+  //$("#"+x).parent().parent().parent().parent().remove();
+  //$(".popover").remove();
+
+  console.log("ddd " +$("#"+x).parent().parent().parent().parent().attr("id"));
+  var mp = $("#"+x).parent().parent().parent().parent().attr("id");
+  var cparent = $("#"+x).parent().parent().parent().parent().parent().attr("class");
+
+  console.log("EEE: "+$(".numerator").find(".formula_entry").length);
+  console.log("FFF: "+$(".denominator").find(".formula_entry").length);
+
+  var ccp = $("#"+mp).parent().parent().attr("class");
+  console.log("GGG: "+$("#"+mp).parent().parent().attr("class"));
+
+  if(ccp == "numerator"){
+    var numchild = $(".numerator").find(".formula_entry").length;
+    var hasPlusBtn = $(".numerator").find(".add-element").is(":visible");
+
+    if(numchild != 1){
+
+      $("#"+mp).prev().remove();
+      $("#"+mp).next().remove();
+      $("#"+mp).remove();
+
+      console.log("V1: " +numchild);
+      console.log("V2: " +hasPlusBtn);
+      var numchild = $(".numerator").find(".formula_entry").length;
+      if(numchild < 4 && hasPlusBtn == false){
+        console.log("Z1");
+        $(".numerator").find(".add_entry").show();
+      }else{
+        console.log("Z2");
+      }
+    }
+  }else if(ccp == "denominator"){
+    var denchild = $(".denominator").find(".formula_entry").length;
+    var hasPlusBtn = $(".denominator").find(".add-element").is(":visible");
+    if(denchild != 1){
+      $("#"+mp).prev().remove();
+      $("#"+mp).next().remove();
+      $("#"+mp).remove();
+
+      var denchild = $(".numerator").find(".formula_entry").length;
+      if(denchild < 4 && hasPlusBtn == false){
+        console.log("Z3");
+        $(".denominator").find(".add_entry").show();
+      }else{
+        console.log("Z4");
+      }
+
+    }
+  }
+
+}
+
+
+function removeThisRow(v){
+  var poc = $("#"+v).parent().attr("id");
+
+  var pfl = $(".popover-content .rows").find(".property_filter").length;
+  alert(poc);
+  if(pfl != 1){
+    $(".formula_entry").find("#"+poc).remove(); //remove row in formula_popup_body
+    $("#"+poc).remove(); //remove row in popover
+  }
+}
+  
+
+  function drawchart(){
+    chartOptions = {
+      chart:{
+        renderTo: "container",
+        marginTop: 40
+      },
+      title: {
+        text: '',
+        x: -20 //center
+      },
+      credits: {
+        enabled: false
+      },
+  
+      subtitle: {
+        text: '',
+        x: -20
+      },
+      xAxis: {
+        gridLineWidth: 1,
+        type: 'datetime',
+        dateTimeLabelFormats: {
+          day: "%b %e"
+        }
+      },
+      yAxis: {
+        title: {
+          text: ''
+        },
+        plotLines: [{
+          value: 0,
+          width: 1,
+          color: '#808080'
+        }]
+      },
+      series: [{
+        name: ''
+      }]
+    };
+
+  }
+
+  function loadActionChart(){      
+    drawchart();
+
+    var actionResp = jQuery.parseJSON(decodeURIComponent('{"dates":["2013-12-01","2013-12-02","2013-12-03","2013-12-04","2013-12-05","2013-12-06","2013-12-07","2013-12-08","2013-12-09","2013-12-10","2013-12-11","2013-12-12","2013-12-13","2013-12-14","2013-12-15","2013-12-16","2013-12-17","2013-12-18","2013-12-19","2013-12-20","2013-12-21","2013-12-22","2013-12-23","2013-12-24","2013-12-25","2013-12-26","2013-12-27","2013-12-28","2013-12-29","2013-12-30","2013-12-31"],"numberAction":["3189","2213","1574","3939","5936","3963","4576","5049","0","0","4615","538ce404-62b8-408e-be10-af8cbfcbf94a6","6060","2321","6063","1842","2424","2326","5068","4201","9450","3810","2397","2406","2661","1722","5157","3205","5220","5621","5790"]}'));
+
+    var _data = [];
+    for(var j=0; j < actionResp.dates.length; j++){
+      var x = actionResp.dates[j].split("-");
+      var availDate = Date.UTC(parseInt(x[0], "10"),parseInt(x[1], "10")-1,parseInt(x[2], "10")); 
+      _data.push( [ availDate, parseInt(actionResp.numberAction[j]) ]);
+    }
+
+    chartOptions.series[0].data = _data;      
+    action_chart = new Highcharts.Chart(chartOptions);
+  }
+  
+  
+</script>
+
+
+
+
+</body>
+</html>
