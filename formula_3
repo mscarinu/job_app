@@ -117,12 +117,12 @@ vertical-align: middle;
 
 .numerator .popover, .denominator .popover{
 background-color: #3d4e67;
-min-width: 280px;
+min-width: 280px; //646px;
 width: auto; 
 height: auto;
 //padding: 10px;
 max-width: none;
-
+//left: -116px !important;
 
 }
 .op_choice, .op_separator, .toggle_paren{
@@ -333,8 +333,12 @@ max-width: none;
   padding: 9px 35px 9px 14px;
 }
 
- .formula_entries .popover.bottom .arrow {
+ .formula_entry .popover.bottom .arrow {
       left: 150px;
+  }
+
+  .formula_entry + .popover .arrow{
+    //left: 50%;
   }
 
 .formula_entries .popover-title {
@@ -441,6 +445,10 @@ padding-bottom: 0;
 
 .fa-trash-o{
   cursor: pointer;
+}
+
+.formula_operator + .popover.bottom.in{
+  //min-width: 280px;
 }
 </style>
 </head>
@@ -735,7 +743,7 @@ padding-bottom: 0;
                                   </div>
 
                                   <div>
-                                    <i class="fa fa-trash-o" id="formula_44234" onclick="removeThisEntry(this.id)"></i>
+                                    <i class="fa fa-trash-o" id="formula_44232434" onclick="removeThisEntry(this.id)"></i>
                                   </div>
                                 </div>
                               </div>  
@@ -759,7 +767,7 @@ padding-bottom: 0;
                             <div class="entry_name mp_tooltip_enabled">B</div>    
 
 
-                            <div class="formula_num_widget_body_1" style="display:none">
+                            <div class="formula_num_widget_body" style="display:none">
 
                                 <div class="formula_popup_head frmlh_3241">
                                   <input type="radio" name="user" value="total" style="margin: 0 10px">Total
@@ -799,7 +807,7 @@ padding-bottom: 0;
                                   </div>
 
                                   <div>
-                                    <i class="fa fa-trash-o" id="formula_44234" onclick="removeThisEntry(this.id)"></i>
+                                    <i class="fa fa-trash-o" id="formula_44223534" onclick="removeThisEntry(this.id)"></i>
                                   </div>
                                 </div>
                               </div>  
@@ -989,7 +997,7 @@ padding-bottom: 0;
 var r = Math.round(Math.random()*1000000);
 
 $d.find(".formula_entries").append(
-'<div class="formula_operator">'+
+'<div class="formula_operator" data-toggle="popover" >'+
  ' <div class="operator_tooltip" style="display: none">'+
   '  <i class="op_choice fa fa-plus-square-o add selected"></i>'+
   '  <i class="op_choice subtract fa fa-minus-square-o"></i>'+
@@ -1069,9 +1077,17 @@ $d.find(".formula_entries").append(
       placement:"bottom",
       content: function() {
       return $('.operator_tooltip').html();
-      }   
+      },
+      animation: false   
 
     });
+
+     //alert($(this).next().html());
+     $(this).parent().parent().next().find(".popover-title").hide();
+     if($(this).parent().parent().next().hasClass("popover")){
+       // $(this).parent().parent().next().css("min-width", "250px");
+       // $(this).parent().parent().next().find(".arrow").css("left", "142px");
+     }
   });
 
 
@@ -1112,15 +1128,24 @@ $d.find(".formula_entries").append(
     });
 
     /* close all popover when click outside*/
-   /* $('body').on('click', function (e) {
+    $('body').on('click', function (e) {
+        //$('[data-toggle="popover"]')
         $('[data-toggle="popover"]').each(function () {
-
-            if (!$(this).is(e.target) && $(this).has(e.target).length === 0 && $('.popover').has(e.target).length === 0) {
-
+          
+           // console.log("W1: " +$(e.target).parent().attr("id"));
+            console.log("W1: " +$(this).is(e.target));
+            console.log("W2: " +$(this).has(e.target).length);
+            console.log("W3: " +$('.popover').has(e.target).length);
+            //the 'is' for buttons that trigger popups
+            //the 'has' for icons within a button that triggers a popup
+            if (!$(this).is(e.target) && $(this).has(e.target).length == 0 && $('.popover').has(e.target).length == 0) {
+                console.log("T1");
                 $(this).popover('hide');
+            }else{
+                console.log("T2");
             }
         });
-    }); */
+    }); 
 
     $( '.formula_builder' ).on( 'click', '.popover .toggle_paren', function () { 
 
@@ -1193,28 +1218,30 @@ $d.find(".formula_entries").append(
 
     $( '.formula_builder' ).on( 'click', '.formula_entry', function () { 
       //$(this).find(".entry_name").html("SignUp");
-      console.log("HELLO");
+
+
+      var u = $(this).parent().parent().attr("class");
+      var x = $(this).attr("id");
 
       var cl = $(this).find(".formula_popup_head").attr("class");
       var ca = cl.split(" ");
       var cb = ca[1].substring(6); 
-      console.log("CCC: " +cb);
 
       $(this).parent().parent().find(".add_entry .btnAddAction").removeAttr("disabled");
-      console.log("DD: " +$(this).attr("id"));
         $(this).popover({ 
           html : true, 
           placement: "bottom",
           title: function(){
-          return $(this).find('.frmlh_'+cb).html();
+          return ("."+u +" #"+x).find('.frmlh_'+cb).html();
           },
           content: function() {
-            return $(this).find('.frmlb_'+cb).html();
+            return $("."+u +" #"+x).find('.frmlb_'+cb).html();
           },
           animation: false,
-        });
+        })
 
 
+        //$(this).next().find(".arrow").css("left", "50%");
     });
 
    
@@ -1225,12 +1252,10 @@ $d.find(".formula_entries").append(
 
 function expandFilter(x, y){
   var poc = $("#"+y).parent().parent().attr("id");
-  console.log("AAA:  "+poc);
+
   var b = '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" style="display: inline-block; padding-right: 4px;padding-left: 4px;"><select style="width: 150px">'+s_filter+'</select></div>';
    
   var d = $(".popover-content #"+y +" option:selected").text();
-  console.log("BBB:  "+d);
-  console.log("CCC:  "+y);
 
   if(d == "Events"){
       b += '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" style="display: inline-block"><select id="third_filter" class="selectWithSearch"><option>Sign In</option><option>Buy Item</option></option></select></div>';   
@@ -1266,15 +1291,18 @@ function expandFilter(x, y){
      $("#"+poc).find(".rule").html(b); 
     $(".popover-content #"+poc).find(".rule").html(b);   
 
+    console.log("---ee--- " +poc);
+
+    var pe = $("#"+poc).parent().parent().parent().parent().parent().parent().attr("id");
+    //$("#"+pe).next().find(".arrow").css("left", "24%");
+
 }
 
 
 function addNewRow(eid){
 
   var pid = $("#"+eid).parent().parent().parent().parent().parent().parent().attr("id");
-  console.log("pid: " +pid);
 
-  console.log("--" +s_properties);
   var c = '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" class="property_filter" style="width: auto; white-space: nowrap">'+
                                     '<div class="property_dropdown filterable_dropdown" id="jswidget_'+Math.round(Math.random()*1000000)+'">'+
                                       '<select id="jswidget_'+Math.round(Math.random()*1000000)+'" onchange="expandFilter(this.value, this.id)" class="select2 selectWithSearch" style="width: 155px">'+
@@ -1294,59 +1322,61 @@ function addNewRow(eid){
 
 function removeThisEntry(x){
 
-  alert("trash: " +x);
-  //console.log("--dd-- " +$("#"+x).parent().parent().parent().parent().attr("id"));
-  //$("#"+x).parent().parent().parent().parent().remove();
-  //$(".popover").remove();
-
-  console.log("ddd " +$("#"+x).parent().parent().parent().parent().attr("id"));
   var mp = $("#"+x).parent().parent().parent().parent().attr("id");
   var cparent = $("#"+x).parent().parent().parent().parent().parent().attr("class");
-
-  console.log("EEE: "+$(".numerator").find(".formula_entry").length);
-  console.log("FFF: "+$(".denominator").find(".formula_entry").length);
-
   var ccp = $("#"+mp).parent().parent().attr("class");
-  console.log("GGG: "+$("#"+mp).parent().parent().attr("class"));
 
-  if(ccp == "numerator"){
-    var numchild = $(".numerator").find(".formula_entry").length;
-    var hasPlusBtn = $(".numerator").find(".add-element").is(":visible");
+  if($("#"+mp).prev().hasClass("formula_paren") && $("#"+mp).next().next().hasClass("formula_operator")){
+    var pid = $("#"+mp).prev().attr("id"); //get id of prev parethesis
+    var eid = $("#"+mp).next().next().attr("class"); // get class of formula operator next to it
+    var a = $("#"+mp).prev().attr("class");
+    var b = a.split(" ");
+    var c = b[2].substring(6); 
+
+    $("#"+mp).next().remove(); //remove active popover
+    $("#"+mp).remove(); //remove formula entry
+    $(".parenthe_"+c).remove(); //remove formula_operator button
+    $(".paren_"+c).remove(); //remove associated parentheses   
+
+
+  }else if($("#"+mp).prev().hasClass("formula_operator") && $("#"+mp).next().next().hasClass("formula_paren")){
+    var pid = $("#"+mp).next().next().attr("id"); //get id of next parethesis
+    var eid = $("#"+mp).prev().attr("class"); // get class of formula operator before to it
+    var a = $("#"+mp).next().next().attr("class");
+    var b = a.split(" ");
+    var c = b[2].substring(6);
+
+    $("#"+mp).next().remove(); //remove active popover
+    $("#"+mp).remove(); //remove formula entry
+    $(".parenthe_"+c).remove(); //remove formula_operator button
+    $(".paren_"+c).remove(); //remove associated parentheses
+
+  }else{
+    var hasformulaop = $("#"+mp).next().next().hasClass("formula_operator");
+    var numchild = $("."+ccp).find(".formula_entry").length;
 
     if(numchild != 1){
-
-      $("#"+mp).prev().remove();
-      $("#"+mp).next().remove();
-      $("#"+mp).remove();
-
-      console.log("V1: " +numchild);
-      console.log("V2: " +hasPlusBtn);
-      var numchild = $(".numerator").find(".formula_entry").length;
-      if(numchild < 4 && hasPlusBtn == false){
-        console.log("Z1");
-        $(".numerator").find(".add_entry").show();
+      if(hasformulaop == true){
+        $("#"+mp).next().next().remove();  //remove formula_operator button
+        $("#"+mp).next().remove(); //remove active popover
+        $("#"+mp).remove(); //remove formula entry
       }else{
-        console.log("Z2");
+        //will execute only for the 4th formula entry
+        $("#"+mp).next().remove();
+        $("#"+mp).prev().remove();
+        $("#"+mp).remove();
       }
-    }
-  }else if(ccp == "denominator"){
-    var denchild = $(".denominator").find(".formula_entry").length;
-    var hasPlusBtn = $(".denominator").find(".add-element").is(":visible");
-    if(denchild != 1){
-      $("#"+mp).prev().remove();
-      $("#"+mp).next().remove();
-      $("#"+mp).remove();
+    }   
 
-      var denchild = $(".numerator").find(".formula_entry").length;
-      if(denchild < 4 && hasPlusBtn == false){
-        console.log("Z3");
-        $(".denominator").find(".add_entry").show();
-      }else{
-        console.log("Z4");
-      }
-
-    }
   }
+
+  //add plusBtn if entry is less than 4
+    var numchild = $("."+ccp).find(".formula_entry").length;
+    var hasPlusBtn = $("."+ccp).find(".add-element").is(":visible");
+
+    if(numchild < 4 && hasPlusBtn == false){
+      $("."+ccp).find(".add_entry").show();
+    }
 
 }
 
@@ -1355,7 +1385,6 @@ function removeThisRow(v){
   var poc = $("#"+v).parent().attr("id");
 
   var pfl = $(".popover-content .rows").find(".property_filter").length;
-  alert(poc);
   if(pfl != 1){
     $(".formula_entry").find("#"+poc).remove(); //remove row in formula_popup_body
     $("#"+poc).remove(); //remove row in popover
