@@ -2,7 +2,7 @@ var chartOptions;
 var action_chart;
 
 var s_properties = '<option data-hidden="true"></option><option value="1">Events</option><option value="2">City</option><option value="3">Country</option><option value="4">Phone Type</option><option value="5">Acquisition Source</option><option value="6">Operating System</option><option value="7">Browser</option><option value="8">Time Period</option>';
-var s_filter = '<option value="1">equals</option><option value="2">does not equal</option><option value="3" selected>contains</option><option value="4">does not contain</option><option value="5">is set</option><option value="6">is not set</option>';
+var s_filter = '<option value="1">equals</option><option value="2">does not equal</option><option value="3">contains</option><option value="4">does not contain</option><option value="5">is set</option><option value="6">is not set</option>';
 var s_operators = '<option value="by">BY</option><option value="avg">AVG</option><option value="sum">SUM</option><option value="max">MAX</option><option value="min">MIN</option>';
 var div_s_operators = '<div class="operation"><select class="selectpicker op_picker" id="jswidget_'+Math.round(Math.random()*1000000)+'" style="width: 90px; position: relative; z-index: 1">'+s_operators+'</select></div>';
 var r_actions_content = '<select style="width: 120px" class="datatype selectpicker" id="jswidget_'+Math.round(Math.random()*1000000)+'" disabled> <option value="1">String</option> <option value="2">Number</option> <option value="3">True / False</option> <option value="4">Date</option></select>';
@@ -60,8 +60,8 @@ var event_filter1 =
 '</select>'+
 '<select class="fil_picker attr_list" data-live-search="true" style="margin-left: 5px;" title="Attribute" data-width="auto">'+
 '<option data-hidden="true">'+
-	'<option>defense</option>'+
-	'<option>attack</option>'+
+	'<option value="defense">defense</option>'+
+	'<option value="attack">attack</option>'+
 '</select>';
 
 var event_filter3 = '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" style="display: inline-block; padding-right: 4px;padding-left: 4px;"><select class="second_filter">'+s_filter+'</select></div>';
@@ -108,21 +108,15 @@ $(document).ready(function() {
 
 	/* close all popover when click outside*/
 	$('body').on('click', function (e) {
-		//console.log("-AAA-");
 		$('[data-toggle="popover"]').each(function () {
 			//the 'is' for buttons that trigger popups
 			//the 'has' for icons within a button that triggers a popup
-			//console.log("BBB: " +$(this).is(e.target));
-			//console.log("CCC: " +$(this).has(e.target).length);
-			//console.log("DDD: " +$('.popover').has(e.target).length);
 			if (!$(this).is(e.target) && $(this).has(e.target).length === 0 /*&& $('.popover').has(e.target).length === 0*/) {
-				//console.log("hide");
 				//$(".popover.bottom.in").hide();
 				//$(".popover.bottom.in").popover('hide');
 				//$(".popover.bottom.in").hide();
 				//$(this).popover('hide');
 	        }else{
-	        	//console.log("show");
 	        	//$(this).popover('show');
 	        }
 	    });
@@ -161,21 +155,17 @@ $(document).ready(function() {
 		var secfil_val = $(this).val();
 		var ffil_val = $("#"+poc).find(".first_filter").val();
 		
-		console.log("OOOO " +sfparid);
 		if(ffil_val == 1){ //Events
 			var opEvents = '<option data-hidden="true"></option><option>1</option><option>2</option><option>3</option>';
 			if(secfil_val == 1 || secfil_val == 2){
-				console.log("V1");
 				$("#"+sfparid).nextAll().remove();
 				//console.log("PPP: " +$("#"+sfparid).nextAll().html());
 				$("#"+poc).find(".rule").append('<select class="fil_picker val_select third_filter" multiple title="Value" data-live-search="true" style="margin-left: 5px;" data-width="auto">'+opEvents+'</select>');
 			}else if(secfil_val == 3 || secfil_val == 4){
-				console.log("V2");
 				//console.log("CCC: " +$("#"+sfparid).nextAll().html());
 				$("#"+sfparid).nextAll().remove();
 				$("#"+poc).find(".rule").append('<select class="fil_picker val_select third_filter" title="Value" data-live-search="true" style="margin-left: 5px;" data-width="auto">'+opEvents+'</select>');
 			}else if(secfil_val == 5 || secfil_val == 6){
-				console.log("V3");
 				$("#"+sfparid).nextAll().remove();
 			}
 		}else if(ffil_val == 2){ //City
@@ -197,7 +187,7 @@ $(document).ready(function() {
 				$("#"+sfparid).nextAll().remove();
 			}
 		}else if(ffil_val == 4){ //Phone Type
-			var opPhone = '<option data-hidden="true"></option><option>Iphone 5s</option><option>Note 3</option><option>S4</option>';
+			var opPhone = '<option data-hidden="true"></option><option value="Iphone 5s">Iphone 5s</option><option value="Note 3">Note 3</option><option value="S4">S4</option>';
 			if(secfil_val == 1 || secfil_val == 2){
 				$("#"+sfparid).nextAll().remove();
 				$("#"+poc).find(".rule").append('<select class="third_filter" multiple title="Value" data-live-search="true" style="margin-left: 5px;" data-width="auto">'+opPhone+'</select>');
@@ -304,7 +294,6 @@ $(document).ready(function() {
 	
 	//click trigger on new_row
 	$(".sf_wrapper").on( 'click', '.new_row', function () { 
-		console.log("EEEE");
 		addRow("", "A");
     });
 	
@@ -322,14 +311,11 @@ function changeRule(elem_id, flag){
 	var rule_con = $("#"+poc).find(".rule").html();
 	var ruleCon="";
 	var m = Math.round(Math.random()*1000000);
-	console.log("mmm: " +m);
 	
 	var ef3 = '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" style="display: inline-block; padding-right: 4px;padding-left: 4px;"><select class="second_filter">'+s_filter+'</select></div>';
 	
 	if(flag == "F"){ // onchange Property function
-		console.log("A1");
 		if(rule_con != ""){ // change rule content if not empty
-			console.log("A2");
 			if( ff_val == 1){ 
 				ruleCon = event_filter1+ef3 + "" + event_filter2;
 				$("#"+poc).find(".rule").html(ruleCon);
@@ -343,7 +329,6 @@ function changeRule(elem_id, flag){
 	    		$("#"+poc).find(".second_filter").trigger("change");
 	    	}
 		}else{
-			console.log("A3");
 			$("#"+poc).find(".expand").remove();
 			$("#"+poc).find(".contract").remove();
 			$("#"+poc).find(".datatype").val("1"); //default to string when first filter onchange
@@ -458,7 +443,6 @@ function contractFilter(x){
   }  
 
 function addRow(elem_id, flag){
-	console.log("PPPP: " +elem_id);
 	var nr = '<div id="jswidget_'+Math.round(Math.random()*1000000)+'" class="property_filter">'+
 	'<div class="property_dropdown filterable_dropdown" id="jswidget_'+Math.round(Math.random()*1000000)+'">'+
 	//'<select id="jswidget_'+Math.round(Math.random()*1000000)+'" onchange="showFilter(this.value, this.id)"  title="Property" class="first_filter" data-width="auto" data-live-search="true">'+s_properties+'</select>'+
@@ -610,16 +594,9 @@ function saveBookmark(){
 	var pflength = $(".sf_wrapper").find(".property_filter").length;
 	var count = 0;
 	
-	
-	
 	$(".sf_wrapper").find(".property_filter").each(function(){
 		
 		var bOp = $(".sf_wrapper").find(".selectedBool").attr("id");
-		console.log("EEEE: " +bOp);
-
-		console.log("---" +$(this).attr("id"));
-		console.log("-1--" +$(this).find(".first_filter").val());
-		console.log("-2--" +$(this).find(".first_filter").val());
 		var ffilter = $(this).find(".first_filter").val();
 		//var ddtype = $(this).find(".first_filter").val();
 		
@@ -645,55 +622,47 @@ function saveBookmark(){
 		var sfuncval = $(".sf_wrapper").find(".op_picker").val();
 		
 		var lablength = $(".sf_wrapper").find(".labels").children().length;
-		console.log("OOxxxOO: " +lablength);
 		
 		var r = tfilterval;
-		console.log("TT: " +count);
 		
-		console.log("LLL: " +sfuncval);
 		
 		if(count > 0){
 			if(count+3 == lablength && sfunc != 0){
 				b += "@" +sfuncval;
-				d += "sgm1" +sfuncval;
-				console.log("MM: " +b);
+				//d += "sgm1" +sfuncval;
 			}else{
-				console.log("WWWW");
 				b += "@" +bOp+";";
-				d += "sgm1" +bOp+"sgmop";
+				//d += "sgm1" +bOp+"sgmop";
 			}
 		}
 		if(sfilter != 0){
-			console.log("W1");
-
-			console.log("sfil: " +sfilterval);
 			if(ffilter == 1){
 				var c = "", f="";
 				if(sfilterval == 1 || sfilterval == 2){
 					if(r != null){
 						for(var i=0; i < r.length; i++){
 							c += r[i] + "/";
-							f += r[i] + "/";
+							//f += r[i] + "/";
 						}
 						c = c.substring(0, c.length-1);
 						
-						f = f.substring(0, f.length-1);
-						d = f.replace("/", "sgm4");
+						//f = f.substring(0, f.length-1);
+						//f = f.replace("/", "sgm4");
 					}
 				}else{
 					c = tfilterval;
-					f = tfilterval;
+					//f = tfilterval;
 				}
 				b += ffilter+"="+eventlistval+"&"+sfilterval+":"+attrlistval+","+c;
-				d += ffilter+"sgmeq"+eventlistval+"sgm5"+sfilterval+"sgm2"+attrlistval+"sgm3"+f;
+				//d += ffilter+"sgmeq"+eventlistval.replace("/", "sgm4")+"sgm5"+sfilterval+"sgm2"+attrlistval+"sgm3"+f;
 				
 				
 			}else if(ffilter == 8){
 				b += ffilter+"="+prangeval+":"+pnumval+"/"+pperiodval;
-				d += ffilter+"sgmeq"+prangeval+"sgm2"+pnumval+"sgm4"+pperiodval;
+				//d += ffilter+"sgmeq"+prangeval+"sgm2"+pnumval+"sgm4"+pperiodval;
 			}else if(ffilter == 2){
 				b+= ffilter + "=" + sfilterval +":" +tfilterval;	
-				d+= ffilter + "sgmeq" + sfilterval +"sgm2" +tfilterval;	
+				//d+= ffilter + "sgmeq" + sfilterval +"sgm2" +tfilterval;	
 				
 			}else{
 				var c = "", f="";
@@ -702,66 +671,61 @@ function saveBookmark(){
 					if(r != null){
 						for(var i=0; i < r.length; i++){
 							c += r[i] + "/";
-							f += r[i] + "/";
+							//f += r[i] + "/";
 						}
 						c = c.substring(0, c.length-1);
 						
-						f = f.substring(0, f.length-1);
-						f = f.replace("/", "sgm4");
+						//f = f.substring(0, f.length-1);
+						//f = f.replace("/", "sgm4");
 					}
 					
 				}else{
 					c = tfilterval;
-					f = tfilterval;
+					//f = tfilterval;
 				}
 				
 				b+= ffilter + "=" + sfilterval +":" +c;
-				d+= ffilter + "sgmeq" + sfilterval +"sgm2" +f;
+				//d+= ffilter + "sgmeq" + sfilterval +"sgm2" +f;
 			}
 		}else if(eventlist != 0){
-			console.log("W2");
 			
 			var c = "", f="";
 			var r = tfilterval;
 			if(sfilterval == 1 || sfilterval == 2){
 				for(var i=0; i < r.length; i++){
 					c += r[i] + "/";
-					f += r[i] + "/";
+					//f += r[i] + "/";
 				}
 				c = c.substring(0, c.length-1);
 				
-				f = f.substring(0, f.length-1);
-				d = f.replace("/", "sgm4");
+				//f = f.substring(0, f.length-1);
+				//f = f.replace("/", "sgm4");
 			}else{
 				c = tfilterval;
 				c = c.substring(0, c.length-1);
 				
-				f = tfilterval;
-				f = f.substring(0, f.length-1);
+				//f = tfilterval;
+				//f = f.substring(0, f.length-1);
 			}
 			b += ffilter+"="+eventlistval+"&"+sfilterval+":"+attrlistval+","+c;
-			b += ffilter+"="+eventlistval+"&"+sfilterval+":"+attrlistval+","+f;
+			//d += ffilter+"="+eventlistval.replace("/", "sgm4");+"&"+sfilterval+":"+attrlistval+","+f;
 		}else if(prange != 0){
-			console.log("W3");
 			b += ffilter+"="+prangeval+":"+pnumval+"/"+pperiodval
-			d += ffilter+"sgmeq"+prangeval+"sgm2"+pnumval+"sgm4"+pperiodval
+			//d += ffilter+"sgmeq"+prangeval+"sgm2"+pnumval+"sgm4"+pperiodval
 		}else if(numrange != 0){
-			console.log("W4");
 			if(numrangeval == 7){
 				b += ffilter+"="+numrangeval+":"+$(".input_from").val() + "/" +$(".input_to").val();
-				d += ffilter+"sgmeq"+numrangeval+"sgm2"+$(".input_from").val() + "sgm4" +$(".input_to").val();
+				//d += ffilter+"sgmeq"+numrangeval+"sgm2"+$(".input_from").val() + "sgm4" +$(".input_to").val();
 			}else{
 				b += ffilter + "=" + numrangeval + ":" + $(".input_from").val();
-				d += ffilter + "sgmeq" + numrangeval + "sgm2" + $(".input_from").val();
+				//d += ffilter + "sgmeq" + numrangeval + "sgm2" + $(".input_from").val();
 			}
 		}else if(boolsel != 0){
-			console.log("W5");
 			b += ffilter + "=" + boolselval;
-			d += ffilter + "sgmeq" + boolselval;
+			//d += ffilter + "sgmeq" + boolselval;
 		}else{
-			console.log("W6");
 			b += ffilter;
-			d += ffilter;
+			//d += ffilter;
 		}
 		count ++;
 		
@@ -769,13 +733,171 @@ function saveBookmark(){
 		
 	});
 
-	console.log("xxxx " +b);
-	console.log("SSSS " +d);
+	console.log(">>>1: " +b);
 	//var strep = b.replace("@" , "sgm1").replace(";" , "sgmop").replace(":" , "sgm2").replace("," , "sgm3").replace("/" , "sgm4").replace("=" , "sgmeq").replace("&" , "sgm5");
-	 
+	var strep = b.replace(/@/g , "sgm1").replace(/;/g , "sgmop").replace(/:/g , "sgm2").replace(/,/g , "sgm3").replace(/\//g , "sgm4").replace(/=/g , "sgmeq").replace(/&/g , "sgm5");
+
+	console.log(">>>2: " +strep);
+//	var q = d.replace("sgm1", "@").replace("sgmop", ";").replace("sgm2", ":").replace("sgm3", ",").replace("sgm4", "/").replace("sgmeq", "=").replace("sgm5", "&");
+//	var q = d.replace(/sgm1/g, "@").replace(/sgmop/g, ";").replace(/sgm2/g, ":").replace(/sgm3/g, ",").replace(/sgm4/g, "/").replace(/sgmeq/g, "=").replace(/sgm5/g, "&");
 	
 }
 
+
+function showBookmark(eid){
+	console.log("AA: " +eid);
+	
+	//var bmval = ";1sgmeqopensgm4fightsgm52sgm2attacksgm31sgm42";//-->check
+	//var bmval = ";8sgmeq14sgm218sgm43"; //->check
+	//var bmval =";1=close/dungeonmenu&1:defense,1/2@and;4=3:Iphone 5s@and;5=6:$direct"; //-->cehck
+	//var bmval = ";4sgmeq2sgm2Iphone 5ssgm4S4"; //-->check
+	//var bmval = ";3sgmeq1sgm2sgm1by"; //-->check
+	//var bmval = ";1sgmeqopensgm4fightsgm52sgm2defensesgm31sgm42"; //-->check
+	//var bmval = ";1"; -->check
+	//var bmval = ";4sgmeq1sgm2sgm1andsgmopsgm1andsgmop5sgm1andsgmop2sgmeq1sgm2"; //-->check
+	
+	var bmval = ";5sgm1andsgmop5sgmeq2sgm2sgm1andsgmop5sgmeq4sgm2sgm1andsgmop7sgmeq2sgm2Chromesgm4Safarisgm1andsgmop8sgmeq14sgm213sgm42sgm1andsgmopsgm1andsgmop7sgm1andsgmop7sgmeq6sgm2undefined";
+	//var bmval = ";5sgm1andsgmop5sgmeq2sgm2sgm1andsgmop5sgmeq4sgm2sgm1andsgmop7sgmeq2sgm2Chromesgm4Safarisgm1andsgmop8sgmeq14sgm213sgm42sgm1andsgmopsgm1andsgmop7sgm1andsgmop7sgmeq6sgm2";
+	bmval = bmval.replace(/sgm1/g, "@").replace(/sgmop/g, ";").replace(/sgm2/g, ":").replace(/sgm3/g, ",").replace(/sgm4/g, "/").replace(/sgmeq/g, "=").replace(/sgm5/g, "&");
+	
+	console.log("DD1: " +bmval);
+	
+	var bm = bmval.split("@"); //;1=open/fight&1:defense,1/2@and;3=3:Singapore@and;7=3:Chrome 
+	console.log("K1: " +bm);
+	$(".sf_wrapper").find(".labels").empty();
+	$(".sf_wrapper").find(".rows").empty();
+	$(".sf_wrapper").find(".new_row").hide();
+	var pf="";
+	var ru="";
+	for(var i=0; i < bm.length; i++){
+		var a = Math.round(Math.random()*1000000);
+		var b = Math.round(Math.random()*1000000);
+		var c = Math.round(Math.random()*1000000);
+		
+		pf =	'<div id="jswidget_'+a+'" class="property_filter">'+
+	        '<div class="property_dropdown filterable_dropdown" id="jswidget_'+b+'">'+
+	          '<select id="jswidget_'+c+'" class="first_filter" title="Property" data-width="auto" data-live-search="true">'+
+	            s_properties+
+	          '</select>'+
+	        '</div>'+
+	        '<div class="rule"></div>'+
+	        '<div class="delete_button icon_button delete" id="jswidget_'+Math.round(Math.random()*1000000)+'" onclick="removeThisRow(this.id)">'+
+	          '<button class="btn delete_prop" type="button"><i class="fa fa-times"></i></button>'+
+	        '</div>'+
+	        '<div class="typecast_dropdown icon_dropdown" id="jswidget_'+Math.round(Math.random()*1000000)+'">'+
+	        	r_actions_content+
+	        '</div>'+
+	        '<div class="insert_row">'+
+	           '<i class="fa fa-plus-circle add-small-plus"></i><div class="line"></div>'+
+	        '</div>'+
+	      '</div>';
+		
+		
+		var z = bm[i].split(";");
+		
+		console.log("CC2: " +z[0]);
+		console.log("CC3: " +z[1]);
+		
+		var p="";
+		if(z[1] != undefined){
+			var p = z[1].split("=");
+			
+			$(".sf_wrapper").find(".rows").append(pf);
+			$("#jswidget_"+c).val(p[0]); //1
+			
+			if(z[1] != ""){
+				console.log("QQ");
+				
+				
+				console.log("L1: " +p[0]);
+				
+				if(p[1] == undefined){
+					changeRule("jswidget_"+b, "F");
+				}else{
+					changeRule("jswidget_"+b, "E");
+					if(p[0] == "1"){
+						console.log("A3: ");
+						
+						
+						console.log("B1: " +p[0]); //1
+						console.log("B2: " +p[1]); //open/fight&2:attack,1/2 
+						
+						var u = p[1].split("&");
+						console.log("U1: " +u[0]); //open/fight
+						console.log("U2: " +u[1]); //2:attack,1/2
+						
+						var t = u[1].split(":");
+						console.log("T1: "+t[0]); //2
+						console.log("T2: "+t[1]); //attack,1/2 
+						
+						var v = t[1].split(",");
+						console.log("V1: "+v[0]); //attack
+						console.log("V2: "+v[1]); //1/2 
+						
+						var x = v[1].split("/"); //1,2
+						
+						
+						$("#jswidget_"+a).find(".event_list").val(u[0]);
+						$("#jswidget_"+a).find("select.second_filter").selectpicker("val", t[0]);
+						$("#jswidget_"+a).find("select.attr_list").selectpicker("val", v[0]);
+						$("#jswidget_"+a).find("select.third_filter").selectpicker("val", x);
+					}else if(p[0] == "8"){
+						console.log("A4: ");
+						
+						console.log("B1: " +p[0]); //8
+						console.log("B2: " +p[1]); //14:13/2 
+						
+						var u = p[1].split(":");
+						console.log("T1: "+u[0]); //14
+						console.log("T2: "+u[1]); //13/2 
+						
+						var t = p[1].split(":");
+						console.log("T1: "+t[0]); //13
+						console.log("T2: "+t[1]); //2
+						
+						
+						$("#jswidget_"+a).find("select.prange").selectpicker("val", u[0]);
+						$("#jswidget_"+a).find("select.pnum").selectpicker("val", t[0]);
+						$("#jswidget_"+a).find("select.pperiod").selectpicker("val", t[1]);
+					}else {
+						console.log("A5: ");
+						
+						console.log("B1: " +p[0]); //4
+						console.log("B2: " +p[1]); //3:Iphone 5s
+						var t = p[1].split(":"); //3
+						console.log("X1: " +t[0]); //4
+						console.log("X2: " +t[1]); //Iphone 5s
+						
+						console.log("G1: " +t[1] == undefined );
+						console.log("G2: " +t[1] == null );
+						console.log("G3: " +t[1] == "" );
+						
+						if(t[1] == undefined || t[1] == null || t[1] == ""){
+							console.log("11");
+						}else{
+							console.log("12");
+							var x = t[1].split("/"); //Iphone 5s
+						}
+						
+						$("#jswidget_"+a).find("select.second_filter").selectpicker("val", t[0]);
+						$("#jswidget_"+a).find("select.third_filter").selectpicker("val", x);
+					}
+				}
+				
+				
+				
+				
+			}else{
+				console.log("EE");
+				$("#jswidget_"+a).find("select.first_filter").selectpicker("refresh");
+			}
+			
+		}else{
+			addRow("", "A");
+		}
+	}
+	
+}
 
 function loadTable(){
 	resp = [{"eventName": "Buy Item", "day1": "0", "day2": "0", "day3": "0", "day4": "0"}];
